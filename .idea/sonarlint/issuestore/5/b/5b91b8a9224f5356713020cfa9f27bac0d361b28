@@ -1,0 +1,20 @@
+
+¡
+java:S1104
+"YMake linkGoToLogin a static final constant or non-public and provide accessors if needed.(ï«€ªüÿÿÿÿ8ÕìûÔ€2J$7967015d-9aed-4691-a79a-7c881ca4c134
+
+java:S1104"UMake btnSignUp a static final constant or non-public and provide accessors if needed.(Å‹Ú´ÿÿÿÿÿ8’ÄüÔ€2J$daee4a67-15c5-44ee-a9ee-3b0125ede863
+›
+java:S1104"XMake txtFirstName a static final constant or non-public and provide accessors if needed.(µõÄú8ğ²„Õ€2J$ec03da82-de73-4e02-b0b2-5ce2a52ba82f
+š
+java:S1104"WMake txtLastName a static final constant or non-public and provide accessors if needed.(ÁŠÂ 8ßÊ„Õ€2J$3a6d49ce-1164-4675-957f-b5c3aacebf1b
+Ÿ
+java:S1104"WMake txtUserName a static final constant or non-public and provide accessors if needed.(÷‹Ú’üÿÿÿÿ8¾â„Õ€2J$2b8dec3f-bd21-4ef4-a05b-01d06ce86907
+œ
+java:S1104"TMake txtEmail a static final constant or non-public and provide accessors if needed.(Ø¦½üÿÿÿÿ8˜÷„Õ€2J$44864376-d7e5-417d-8fa6-8dcde7063afe
+š
+java:S1104"WMake txtPassword a static final constant or non-public and provide accessors if needed.(Óšº÷8ƒ…Õ€2J$7f49d323-28a2-4d3e-97dd-96271c9214fa
+É
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(õâÂ¹øÿÿÿÿ8ãûüÔ€2J$fadf16b2-8953-4409-a94c-ccbe32651820
+É
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¸«§Âúÿÿÿÿ8‹¢ıÔ€2J$cab01fd8-e082-47df-aee3-602bebb459df
