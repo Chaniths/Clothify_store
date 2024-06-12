@@ -1,18 +1,19 @@
 
-œ
-java:S1104
-"TMake txtEmail a static final constant or non-public and provide accessors if needed.(Ø¦½üÿÿÿÿ8íÍáÒ€2J$f261e7b4-ead7-4a31-b302-017920684326
-—
-java:S1104"TMake btnLogin a static final constant or non-public and provide accessors if needed.(Ş˜ÕÓ8Ç½âÒ€2J$f7979332-4f94-44e0-a592-d556c70654b0
-¡
-java:S1104"^Make linkForgotPassword a static final constant or non-public and provide accessors if needed.(ÀÅÄÀ8ÏãÒ€2J$881fce9b-d7db-43ab-b5bd-b2d69a0c2b44
-¥
-java:S1104"]Make linkCreateAccount a static final constant or non-public and provide accessors if needed.(Öì…áûÿÿÿÿ8çŸãÒ€2J$46e6d948-5db0-49ae-ad60-03133cef2db5
-š
-java:S1104"WMake txtPassword a static final constant or non-public and provide accessors if needed.(Óšº÷8²À˜Õ€2J$605a31f4-2ec5-424a-81a4-b2ae21281419
-É
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ùõášşÿÿÿÿ8úÄãÒ€2J$dcb0d4bb-4169-48c5-b5ef-e466a23b5fe3
-Ä
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¸¾Ê8ôßãÒ€2J$1f82b55d-e3a3-4dac-ad42-13f59c18f75d
-É
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ğÒ¤»şÿÿÿÿ8ÇüãÒ€2J$8b918c24-6d1c-4483-9ad0-148249643702
+{
+java:S1854"8Remove this useless assignment to local variable "text".(‹ä²Á8­áŞÛ€2J$78418798-3e8a-46cf-b7a5-f202744eda23
+z
+java:S1172"2Remove this unused method parameter "actionEvent".(Ùõášşÿÿÿÿ8Ï¹ŞÛ€2J$7a6f8202-34a5-4a21-a5e3-a2dc8bc067c0
+l
+java:S1481")Remove this unused "text" local variable.(‹ä²Á8¯áŞÛ€2J$caccfb5b-2f5a-4f06-8777-b01cf771201e
+{
+java:S1854"8Remove this useless assignment to local variable "text".(‹ä²Á8òÛáÛ€2J$c3652b7c-85a5-4247-9573-8a10083cc48b
+u
+java:S1172"2Remove this unused method parameter "actionEvent".(¸¾Ê8óÛáÛ€2J$20da1374-2673-4f4a-8afa-b39e604898bd
+l
+java:S1481")Remove this unused "text" local variable.(‹ä²Á8óÛáÛ€2J$dd7c6250-6957-4b8f-a212-a080f13825d9
+{
+java:S1854"8Remove this useless assignment to local variable "text".(‹ä²Á8óÛáÛ€2J$fd634b8c-28cc-423b-a28b-16a5d41be762
+z
+java:S1172"2Remove this unused method parameter "actionEvent".(ğÒ¤»şÿÿÿÿ8óÛáÛ€2J$c7ef19c7-0baa-49d0-85b2-3885e817f6eb
+l
+java:S1481")Remove this unused "text" local variable.(‹ä²Á8ôÛáÛ€2J$c9577e1d-3b14-4e8c-8189-7343fc687533

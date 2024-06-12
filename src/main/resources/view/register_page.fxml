@@ -17,7 +17,7 @@
       <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#0a0c0d" height="375.0" layoutX="15.0" layoutY="52.0" stroke="#0a0808" strokeType="INSIDE" strokeWidth="0.0" width="670.0" />
       <ImageView fitHeight="297.0" fitWidth="298.0" layoutX="15.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true" style="-fx-blend-mode: src_over;">
          <image>
-            <Image url="@../img/Clothify%20Logo.jpg" />
+            <Image url="@../img/Clothify Logo.jpg" />
          </image>
       </ImageView>
       <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#014c78" height="375.0" layoutX="309.0" layoutY="52.0" stroke="#1e1c1c" strokeLineCap="ROUND" strokeType="INSIDE" width="377.0" AnchorPane.leftAnchor="309.0" AnchorPane.rightAnchor="24.21630859375">
