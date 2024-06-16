@@ -5,10 +5,17 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
 
 public class RegisterFormController {
-
+    @FXML
+    private AnchorPane registerPane;
     @FXML
     private Hyperlink linkGoToLogin;
     @FXML
@@ -24,11 +31,23 @@ public class RegisterFormController {
     @FXML
     private JFXPasswordField txtPassword;
 
-    public void linkGoToLoginOnAction(ActionEvent actionEvent) {
-        String text = txtEmail.getText();
+    public void linkGoToLoginOnAction(ActionEvent actionEvent) throws IOException {
+        Parent parent = new FXMLLoader(getClass().getResource("/view/login/login_page.fxml")).load();
+        registerPane.getChildren().clear();
+        registerPane.getChildren().add(parent);
+
     }
 
-    public void btnSignUpOnAction(ActionEvent actionEvent) {
-        String text = txtEmail.getText();
+    public void btnSignUpOnAction(ActionEvent actionEvent) throws IOException {
+        if (txtEmail.getText().isEmpty()){
+            btnSignUp.setDisable(true);
+            new Alert(Alert.AlertType.ERROR, "Enter Email to Continue !").show();
+        }
+        Parent parent = new FXMLLoader(getClass().getResource("/view/login/login_page.fxml")).load();
+        registerPane.getChildren().clear();
+        registerPane.getChildren().add(parent);
+
     }
+
+
 }

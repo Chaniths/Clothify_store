@@ -1,19 +1,7 @@
 
-{
-java:S1854"8Remove this useless assignment to local variable "text".(‹ä²Á8­áŞÛ€2J$78418798-3e8a-46cf-b7a5-f202744eda23
-z
-java:S1172"2Remove this unused method parameter "actionEvent".(Ùõášşÿÿÿÿ8Ï¹ŞÛ€2J$7a6f8202-34a5-4a21-a5e3-a2dc8bc067c0
-l
-java:S1481")Remove this unused "text" local variable.(‹ä²Á8¯áŞÛ€2J$caccfb5b-2f5a-4f06-8777-b01cf771201e
-{
-java:S1854"8Remove this useless assignment to local variable "text".(‹ä²Á8òÛáÛ€2J$c3652b7c-85a5-4247-9573-8a10083cc48b
 u
-java:S1172"2Remove this unused method parameter "actionEvent".(¸¾Ê8óÛáÛ€2J$20da1374-2673-4f4a-8afa-b39e604898bd
-l
-java:S1481")Remove this unused "text" local variable.(‹ä²Á8óÛáÛ€2J$dd7c6250-6957-4b8f-a212-a080f13825d9
-{
-java:S1854"8Remove this useless assignment to local variable "text".(‹ä²Á8óÛáÛ€2J$fd634b8c-28cc-423b-a28b-16a5d41be762
+java:S1172 "2Remove this unused method parameter "actionEvent".(Ã‹ÛÓ8‚­¿ä2J$d71e7c56-1261-4b51-af8e-75ec044c6226
 z
-java:S1172"2Remove this unused method parameter "actionEvent".(ğÒ¤»şÿÿÿÿ8óÛáÛ€2J$c7ef19c7-0baa-49d0-85b2-3885e817f6eb
-l
-java:S1481")Remove this unused "text" local variable.(‹ä²Á8ôÛáÛ€2J$c9577e1d-3b14-4e8c-8189-7343fc687533
+java:S1172$"2Remove this unused method parameter "actionEvent".(ıÒ¢Ãúÿÿÿÿ8†­¿ä2J$e77574b4-1e1f-4200-80fa-a65e1302a1ab
+z
+java:S1172+"2Remove this unused method parameter "actionEvent".(Üù˜Šşÿÿÿÿ8«ËÎä2J$822fac1b-8feb-4cb2-9b6d-fa2ed376a6f9

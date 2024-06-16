@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="registerPane" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #A6D3F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.clothify.pos.controller.user.RegisterFormController">
+   <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#0a0c0d" height="441.0" layoutX="26.0" layoutY="24.0" stroke="#0a0808" strokeType="INSIDE" strokeWidth="0.0" width="738.0" />
+   <ImageView fitHeight="297.0" fitWidth="298.0" layoutX="26.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true" style="-fx-blend-mode: src_over;">
+      <Image url="@../../img/Clothify Logo.jpg" />
+   </ImageView>
+   <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#014c78" height="441.0" layoutX="324.0" layoutY="24.0" stroke="#1e1c1c" strokeLineCap="ROUND" strokeType="INSIDE" width="444.0" AnchorPane.leftAnchor="324.0" AnchorPane.rightAnchor="32.21630859375">
+      <effect>
+         <Blend />
+      </effect>
+   </Rectangle>
+   <Text fill="#fcfcfc" layoutX="490.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register" wrappingWidth="92.21630859375" AnchorPane.leftAnchor="490.0" AnchorPane.rightAnchor="217.78369140625">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Text>
+   <Hyperlink fx:id="linkGoToLogin" layoutX="662.0" layoutY="328.0" onAction="#linkGoToLoginOnAction" prefHeight="24.0" prefWidth="79.0" text="Go to Login" />
+   <Text fill="#f8f5f5" layoutX="400.0" layoutY="437.0" strokeType="OUTSIDE" strokeWidth="0.0" text="©2024 Clothify Clothing.All rights reserved" wrappingWidth="315.9830722808838" />
+   <JFXTextField fx:id="txtFirstName" blendMode="ADD" layoutX="346.0" layoutY="128.0" promptText="First name" AnchorPane.leftAnchor="346.0" />
+   <JFXTextField fx:id="txtLastName" blendMode="ADD" layoutX="586.0" layoutY="128.0" promptText="Last name" />
+   <JFXTextField fx:id="txtUserName" blendMode="ADD" layoutX="350.0" layoutY="174.0" prefHeight="26.0" prefWidth="391.0" promptText="Username" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="59.0" />
+   <JFXTextField fx:id="txtEmail" blendMode="ADD" layoutX="350.0" layoutY="227.0" prefHeight="26.0" prefWidth="391.0" promptText="Email" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="59.0" />
+   <JFXButton fx:id="btnSignUp" buttonType="RAISED" layoutX="389.0" layoutY="325.0" onAction="#btnSignUpOnAction" prefHeight="31.0" prefWidth="152.0" style="-fx-background-color: #CCE8F9;" text="Sign Up" textFill="#070606" />
+   <JFXPasswordField fx:id="txtPassword" blendMode="ADD" layoutX="354.0" layoutY="273.0" prefHeight="26.0" prefWidth="391.0" promptText="Password" AnchorPane.leftAnchor="354.0" />
+</AnchorPane>
