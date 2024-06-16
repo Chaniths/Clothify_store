@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane fx:id="productPane" prefHeight="900.0" prefWidth="1200.0" style="-fx-background-color: #ADEDFF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.clothify.pos.controller.system_pages.ProductPageFormController">
+   <Rectangle arcHeight="60.0" arcWidth="60.0" fill="#014c78" height="906.0" layoutX="-28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="280.0" />
+   <ImageView fitHeight="188.0" fitWidth="241.0" layoutX="29.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="157.0">
+      <Image url="@../../img/Clothify Logo.jpg" />
+   </ImageView>
+   <JFXButton fx:id="btnOrder" buttonType="RAISED" layoutX="37.0" layoutY="372.0" onAction="#btnOrderOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Order" textFill="#fffbfb" AnchorPane.topAnchor="407.0" />
+   <JFXButton fx:id="btnProduct" buttonType="RAISED" layoutX="37.0" layoutY="446.0" onAction="#btnProductOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #fac8a4;" text="Product" textFill="#030303" AnchorPane.topAnchor="473.0" />
+   <JFXButton fx:id="btnInventory" buttonType="RAISED" layoutX="37.0" layoutY="514.0" onAction="#btnInventoryOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Inventory" textFill="#fffbfb" AnchorPane.topAnchor="539.0" />
+   <JFXButton fx:id="btnSupplier" buttonType="RAISED" layoutX="37.0" layoutY="585.0" onAction="#btnSupplierOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Suppliers" textFill="#fffbfb" AnchorPane.topAnchor="605.0" />
+   <JFXButton fx:id="btnEmployee" buttonType="RAISED" layoutX="37.0" layoutY="653.0" onAction="#btnEmployeeOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Employees" textFill="#fffbfb" AnchorPane.topAnchor="671.0" />
+   <JFXButton fx:id="btnSales" buttonType="RAISED" layoutX="37.0" layoutY="721.0" onAction="#btnSalesOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Sales History" textFill="#fffbfb" AnchorPane.topAnchor="737.0" />
+</AnchorPane>
