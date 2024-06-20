@@ -1,4 +1,4 @@
-package com.clothify.pos.dto.system;
+package com.clothify.pos.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

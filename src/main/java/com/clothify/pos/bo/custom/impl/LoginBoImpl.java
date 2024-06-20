@@ -2,9 +2,13 @@ package com.clothify.pos.bo.custom.impl;
 
 import com.clothify.pos.bo.custom.LoginBo;
 import com.clothify.pos.controller.system_pages.OrderPageFormController;
+import com.clothify.pos.dao.DaoFactory;
+import com.clothify.pos.dao.custom.LoginDao;
+import com.clothify.pos.util.DaoType;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import javafx.scene.control.Alert;
 
 import java.util.Properties;
 import java.util.Random;
@@ -12,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginBoImpl implements LoginBo {
+
+   private final LoginDao loginDao = DaoFactory.getInstance().getDao(DaoType.LOGIN);
 
     Random random = new Random();
     String otp = random.nextInt(10000)+"";
@@ -29,8 +35,9 @@ public class LoginBoImpl implements LoginBo {
             sendEmail(email,emailText);
             return true;
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR,"Email not relatable with the system");
         }
+        return false;
 
     }
 

@@ -1,4 +1,4 @@
-package com.clothify.pos.dto.login;
+package com.clothify.pos.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Login {
+    private String adminType;
     private String email;
     private String password;
 }

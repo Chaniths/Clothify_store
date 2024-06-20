@@ -1,4 +1,4 @@
-package com.clothify.pos.dto.system;
+package com.clothify.pos.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,14 +10,13 @@ import java.awt.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
-    public Product(Image img) {
-        this.img = img;
-    }
 
     private Integer productId;
     private String productName;
     private Integer supplierId;
-    private Integer qtyOnHand;
+    private Double unitPrice;
+    private String category;
+    private Integer qty;
     private Image img;
 
 

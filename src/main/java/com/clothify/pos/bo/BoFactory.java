@@ -1,7 +1,10 @@
 package com.clothify.pos.bo;
 
 import com.clothify.pos.bo.custom.impl.LoginBoImpl;
+import com.clothify.pos.bo.custom.impl.OrderBoImpl;
 import com.clothify.pos.util.BoType;
+
+import java.util.Objects;
 
 public class BoFactory {
 
@@ -15,8 +18,10 @@ public class BoFactory {
 
     public <T extends SuperBo>T getBo (BoType type){
 
-        switch (type){
-            case LOGIN:return (T) new LoginBoImpl();
+        if (Objects.requireNonNull(type) == BoType.LOGIN) {
+            return (T) new LoginBoImpl();
+        } else if (type == BoType.ORDER) {
+            return (T) new OrderBoImpl();
         }
         return null;
     }

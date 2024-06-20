@@ -1,6 +1,6 @@
 package com.clothify.pos.util;
 
-import com.clothify.pos.entity.OrderEntity;
+import com.clothify.pos.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -18,6 +18,12 @@ public class HibernateUtil {
 
         Metadata metadata = new MetadataSources(standardRegistry)
                 .addAnnotatedClass(OrderEntity.class)
+                .addAnnotatedClass(LoginEntity.class)
+                .addAnnotatedClass(CustomerEntity.class)
+                .addAnnotatedClass(EmployeeEntity.class)
+                .addAnnotatedClass(InventoryEntity.class)
+                .addAnnotatedClass(ProductEntity.class)
+                .addAnnotatedClass(SupplierEntity.class)
                 .getMetadataBuilder()
                 .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE)
                 .build();

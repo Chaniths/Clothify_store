@@ -1,20 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="productPane" prefHeight="900.0" prefWidth="1200.0" style="-fx-background-color: #ADEDFF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.clothify.pos.controller.system_pages.ProductPageFormController">
-   <Rectangle arcHeight="60.0" arcWidth="60.0" fill="#014c78" height="906.0" layoutX="-28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="280.0" />
-   <ImageView fitHeight="188.0" fitWidth="241.0" layoutX="29.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="157.0">
+<AnchorPane fx:id="productPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #ADEDFF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.clothify.pos.controller.system_pages.ProductPageFormController">
+   <Rectangle arcHeight="60.0" arcWidth="60.0" fill="#014c78" height="810.0" layoutX="-28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="280.0" />
+   <ImageView fitHeight="220.0" fitWidth="200.0" layoutX="29.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="47.0">
       <Image url="@../../img/Clothify Logo.jpg" />
    </ImageView>
-   <JFXButton fx:id="btnOrder" buttonType="RAISED" layoutX="37.0" layoutY="372.0" onAction="#btnOrderOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Order" textFill="#fffbfb" AnchorPane.topAnchor="407.0" />
-   <JFXButton fx:id="btnProduct" buttonType="RAISED" layoutX="37.0" layoutY="446.0" onAction="#btnProductOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #fac8a4;" text="Product" textFill="#030303" AnchorPane.topAnchor="473.0" />
-   <JFXButton fx:id="btnInventory" buttonType="RAISED" layoutX="37.0" layoutY="514.0" onAction="#btnInventoryOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Inventory" textFill="#fffbfb" AnchorPane.topAnchor="539.0" />
-   <JFXButton fx:id="btnSupplier" buttonType="RAISED" layoutX="37.0" layoutY="585.0" onAction="#btnSupplierOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Suppliers" textFill="#fffbfb" AnchorPane.topAnchor="605.0" />
-   <JFXButton fx:id="btnEmployee" buttonType="RAISED" layoutX="37.0" layoutY="653.0" onAction="#btnEmployeeOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Employees" textFill="#fffbfb" AnchorPane.topAnchor="671.0" />
-   <JFXButton fx:id="btnSales" buttonType="RAISED" layoutX="37.0" layoutY="721.0" onAction="#btnSalesOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Sales History" textFill="#fffbfb" AnchorPane.topAnchor="737.0" />
+   <JFXButton fx:id="btnOrder" buttonType="RAISED" layoutX="33.0" layoutY="266.0" onAction="#btnOrderOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Order" textFill="#fffbfb" AnchorPane.topAnchor="266.0" />
+   <JFXButton fx:id="btnProduct" buttonType="RAISED" layoutX="33.0" layoutY="324.0" onAction="#btnProductOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #fac8a4;" text="Product" textFill="#030303" AnchorPane.topAnchor="324.0" />
+   <JFXButton fx:id="btnInventory" buttonType="RAISED" layoutX="33.0" layoutY="383.0" onAction="#btnInventoryOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Inventory" textFill="#fffbfb" AnchorPane.topAnchor="383.0" />
+   <JFXButton fx:id="btnSupplier" buttonType="RAISED" layoutX="33.0" layoutY="451.0" onAction="#btnSupplierOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Suppliers" textFill="#fffbfb" AnchorPane.topAnchor="451.0" />
+   <JFXButton fx:id="btnEmployee" buttonType="RAISED" layoutX="33.0" layoutY="509.0" onAction="#btnEmployeeOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Employees" textFill="#fffbfb" AnchorPane.topAnchor="509.0" />
+   <JFXButton fx:id="btnSales" buttonType="RAISED" layoutX="33.0" layoutY="570.0" onAction="#btnSalesOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Sales History" textFill="#fffbfb" AnchorPane.topAnchor="570.0" />
+   <Rectangle arcHeight="60.0" arcWidth="60.0" fill="#f2f9ff" height="775.0" layoutX="310.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="818.0" AnchorPane.bottomAnchor="136.0" AnchorPane.leftAnchor="337.0" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="6.0" />
+   <Rectangle arcHeight="60.0" arcWidth="60.0" fill="WHITE" height="626.0" layoutX="431.0" layoutY="123.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="665.0" />
+   <Rectangle arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="89.0" layoutX="429.0" layoutY="21.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="665.0" />
+   <JFXTextField fx:id="txtProductName" layoutX="494.0" layoutY="220.0" promptText="Product Name">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </JFXTextField>
+   <Text layoutX="494.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product ID" wrappingWidth="151.5000000000001">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <Text fx:id="lblProductId" layoutX="646.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="151.5000000000001">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <JFXTextField fx:id="txtUnitPrice" layoutX="847.0" layoutY="220.0" promptText="Product Name" text="Unit Price">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </JFXTextField>
+   <JFXTextField fx:id="txtQty" layoutX="494.0" layoutY="275.0" promptText="Product Name" text="Qty Initialize">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </JFXTextField>
+   <JFXButton fx:id="btnAddPic" buttonType="RAISED" layoutX="495.0" layoutY="325.0" onAction="#btnAddPicOnAction" prefHeight="31.0" prefWidth="108.0" style="-fx-background-color: #014C78;" text="Add Picture" textFill="WHITE">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </JFXButton>
+   <TableView fx:id="tblProduct" layoutX="460.0" layoutY="380.0" prefHeight="291.0" prefWidth="603.0">
+     <columns>
+       <TableColumn fx:id="colProductId" text="Product ID" />
+       <TableColumn fx:id="colProductName" prefWidth="112.0" text="Product Name" />
+         <TableColumn fx:id="colSupplierId" prefWidth="97.0" text="Supplier ID" />
+         <TableColumn fx:id="colUnitPrice" prefWidth="79.0" text="Unit Price" />
+         <TableColumn fx:id="colCategory" prefWidth="138.0" text="Category" />
+         <TableColumn fx:id="colQty" prefWidth="96.0" text="Qty " />
+     </columns>
+   </TableView>
+   <JFXButton fx:id="btnAddProduct" buttonType="RAISED" layoutX="460.0" layoutY="691.0" onAction="#btnAddProductOnAction" prefHeight="26.0" prefWidth="178.0" style="-fx-background-color: #26B170;" text="Add Product" textFill="WHITE">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </JFXButton>
+   <JFXButton fx:id="btnRemove" buttonType="RAISED" layoutX="885.0" layoutY="691.0" onAction="#btnRemoveOnAction" prefHeight="26.0" prefWidth="178.0" style="-fx-background-color: red;" text="Remove" textFill="WHITE">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </JFXButton>
+   <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="669.0" layoutY="691.0" onAction="#btnUpdateOnAction" prefHeight="26.0" prefWidth="178.0" style="-fx-background-color: #009DD1;" text="Update" textFill="WHITE">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </JFXButton>
+   <JFXComboBox fx:id="cmbCategory" layoutX="847.0" layoutY="275.0" prefHeight="26.0" prefWidth="178.0" promptText="Select Category" style="-fx-font-size: 16px;" />
+   <TextField fx:id="txtProductId" layoutX="494.0" layoutY="171.0" prefHeight="31.0" prefWidth="178.0" promptText="Enter Product ID">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </TextField>
+   <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="708.0" layoutY="171.0" onAction="#btnSearchOnAction" prefHeight="31.0" prefWidth="108.0" style="-fx-background-color: #F26E11;" text="Search" textFill="WHITE">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </JFXButton>
+   <JFXComboBox fx:id="cmbSupplier" layoutX="847.0" layoutY="171.0" prefHeight="26.0" prefWidth="178.0" promptText="Select Supplier" style="-fx-font-size: 16px;" />
+   <Text fill="RED" layoutX="494.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not For New Products" wrappingWidth="177.5">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <Text fill="#19ab54" layoutX="494.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID Of New Product" wrappingWidth="178.0">
+      <font>
+         <Font size="16.0" />
+      </font>
+      <effect>
+         <Glow level="0.92" />
+      </effect>
+   </Text>
+   <JFXButton fx:id="btnCustomer" buttonType="RAISED" layoutX="33.0" layoutY="638.0" onAction="#btnCustomerOnAction" prefHeight="33.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Customer" textFill="#fffbfb" />
 </AnchorPane>

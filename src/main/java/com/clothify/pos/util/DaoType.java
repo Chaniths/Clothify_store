@@ -1,14 +1,12 @@
 package com.clothify.pos.util;
 
-public enum BoType{
-    LOGIN,
+public enum DaoType {
+
     ORDER,
+    LOGIN,
     CUSTOMER,
     INVENTORY,
     EMPLOYEE,
     PRODUCT,
     SUPPLIER
-
 }
-
-

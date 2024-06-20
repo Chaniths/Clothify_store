@@ -1,21 +1,27 @@
 package com.clothify.pos.controller.user;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class LoginFormController{
+public class LoginFormController implements Initializable {
 
-
+    @FXML
+    private JFXComboBox cmbRole;
     @FXML
     private AnchorPane loginPane;
     @FXML
@@ -29,18 +35,18 @@ public class LoginFormController{
     @FXML
     private JFXPasswordField txtPassword;
 
-    public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
+    public void btnLoginOnAction() throws IOException {
         resizeWindow();
     }
 
-    public void linkForgotPasswordOnAction(ActionEvent actionEvent) throws IOException {
+    public void linkForgotPasswordOnAction() throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/login/forgot_password.fxml")).load();
         loginPane.getChildren().clear();
         loginPane.getChildren().add(parent);
 
     }
 
-    public void linkCreateAccountOnAction(ActionEvent actionEvent) throws IOException {
+    public void linkCreateAccountOnAction() throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/login/register_page.fxml")).load();
         loginPane.getChildren().clear();
         loginPane.getChildren().add(parent);
@@ -55,14 +61,14 @@ public class LoginFormController{
         // Ensure the new pane is an AnchorPane and set its preferred size and other size constraints
         if (newPane instanceof AnchorPane) {
             AnchorPane anchorPane = (AnchorPane) newPane;
-            anchorPane.setPrefSize(1200, 900);
-            anchorPane.setMaxSize(1200, 900);
-            anchorPane.setMinSize(1200, 900);
+            anchorPane.setPrefSize(1200, 800);
+            anchorPane.setMaxSize(1200, 800);
+            anchorPane.setMinSize(1200, 800);
         }
         // Resize the parent pane to fit the new pane
-        loginPane.setPrefSize(1200, 900);
-        loginPane.setMaxSize(1200, 900);
-        loginPane.setMinSize(1200, 900);
+        loginPane.setPrefSize(1200, 800);
+        loginPane.setMaxSize(1200, 800);
+        loginPane.setMinSize(1200, 800);
 
         // Clear the existing children of loginPane
         loginPane.getChildren().clear();
@@ -80,5 +86,19 @@ public class LoginFormController{
 
     }
 
+    private void loadInitialValues() {
+        ObservableList list = FXCollections.observableArrayList();
+        list.add(new String("ADMIN"));
+        list.add(new String("USER"));
+        cmbRole.setItems(list);
+    }
 
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadInitialValues();
+        linkCreateAccount.autosize();
+        linkForgotPassword.autosize();
+        btnLogin.setDefaultButton(true);
+    }
 }
