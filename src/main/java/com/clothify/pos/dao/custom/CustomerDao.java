@@ -6,9 +6,18 @@ import javafx.collections.ObservableList;
 
 public interface CustomerDao extends SuperDao {
 
-    boolean save(CustomerEntity entity);
+    boolean persist(CustomerEntity entity);
+
+    boolean update(CustomerEntity entity);
+
+    boolean delete(String id);
 
     CustomerEntity search(String searchContact);
 
     ObservableList<CustomerEntity> searchAll();
+
+    String getLatestId();
+
+    int count();
+
 }

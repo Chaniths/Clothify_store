@@ -1,5 +1,8 @@
 package com.clothify.pos.controller.user;
 
+import com.clothify.pos.bo.BoFactory;
+import com.clothify.pos.bo.custom.LoginBo;
+import com.clothify.pos.util.BoType;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
@@ -10,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -35,8 +39,15 @@ public class LoginFormController implements Initializable {
     @FXML
     private JFXPasswordField txtPassword;
 
+    private final LoginBo loginBo = BoFactory.getInstance().getBo(BoType.LOGIN);
+
     public void btnLoginOnAction() throws IOException {
-        resizeWindow();
+
+        if(Boolean.TRUE.equals(loginBo.accountVerify(txtEmail.getText(), txtPassword.getText()))){
+            resizeWindow();
+        }else{
+            new Alert(Alert.AlertType.ERROR,"Login has been failed check username and password again. If new User Create an account.").show();
+        }
     }
 
     public void linkForgotPasswordOnAction() throws IOException {
@@ -87,9 +98,9 @@ public class LoginFormController implements Initializable {
     }
 
     private void loadInitialValues() {
-        ObservableList list = FXCollections.observableArrayList();
-        list.add(new String("ADMIN"));
-        list.add(new String("USER"));
+        ObservableList<String> list = FXCollections.observableArrayList();
+        list.add("ADMIN");
+        list.add("USER");
         cmbRole.setItems(list);
     }
 
@@ -101,4 +112,6 @@ public class LoginFormController implements Initializable {
         linkForgotPassword.autosize();
         btnLogin.setDefaultButton(true);
     }
+
+
 }

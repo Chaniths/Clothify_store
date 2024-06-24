@@ -1,15 +1,20 @@
 package com.clothify.pos.bo.custom;
 
-import jakarta.mail.Message;
-import jakarta.mail.MessagingException;
-import jakarta.mail.Session;
+import com.clothify.pos.bo.SuperBo;
+import com.clothify.pos.dto.Login;
 
-public interface LoginBo {
-    Boolean verifyOtp(String userOtp);
+import java.util.Map;
+
+public interface LoginBo extends SuperBo {
+
+    Boolean persist(Login login);
+
+    Boolean update(Login login,String otp);
+
+    Boolean accountVerify(String email,String password);
 
     Boolean getEmailInfo(String email);
 
-    Message prepareMessage(Session session, String myEmail, String receiveEmail, String text);
+    Map<String,String> getEmailData(String email);
 
-    void sendEmail(String receiveEmail,String text) throws MessagingException;
 }

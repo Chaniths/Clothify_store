@@ -1,7 +1,14 @@
 package com.clothify.pos.controller.system_pages;
 
-import com.jfoenix.controls.JFXButton;
+import com.clothify.pos.bo.BoFactory;
+import com.clothify.pos.bo.custom.InventoryBo;
+import com.clothify.pos.bo.custom.SupplierBo;
+import com.clothify.pos.dto.Inventory;
+import com.clothify.pos.util.BoType;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,45 +18,46 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class InventoryPageFormController implements Initializable {
 
-    public JFXButton btnCustomer;
+    @FXML
+    private JFXComboBox<String> cmbCategory;
+    @FXML
+    private JFXComboBox<String> cmbSupplier;
     @FXML
     private AnchorPane inventoryPane;
     @FXML
-    private TableView tblInventory;
+    private TableView<Inventory> tblInventory;
     @FXML
-    private TableColumn colProductId;
+    private TableColumn<Inventory,String> colProductId;
     @FXML
-    private TableColumn colName;
+    private TableColumn<Inventory,String> colName;
     @FXML
-    private TableColumn colCategory;
+    private TableColumn<Inventory,String> colCategory;
     @FXML
-    private TableColumn colSupplierId;
+    private TableColumn<Inventory,String> colSupplierId;
     @FXML
-    private TableColumn colUnitPrice;
+    private TableColumn<Inventory,String> colUnitPrice;
     @FXML
-    private TableColumn colTotalPrice;
+    private TableColumn<Inventory,String> colTotalPrice;
     @FXML
-    private TableColumn colQtyOnHand;
+    private TableColumn<Inventory,String> colQtyOnHand;
     @FXML
-    private TableColumn colReceivedQty;
+    private TableColumn<Inventory,String> colReceivedQty;
     @FXML
-    private TextField SearchProdId;
+    private TextField searchProdId;
     @FXML
     private JFXTextField txtProductId;
     @FXML
     private JFXTextField txtProductName;
-    @FXML
-    private JFXButton btnSearch;
-    @FXML
-    private JFXTextField txtCategory;
     @FXML
     private JFXTextField txtQtyOnHand;
     @FXML
@@ -57,27 +65,11 @@ public class InventoryPageFormController implements Initializable {
     @FXML
     private JFXTextField txtUnitPrice;
     @FXML
-    private JFXTextField txtSupplierId;
-    @FXML
     private JFXTextField txtInventoryTotal;
-    @FXML
-    private JFXButton btnAddInventory;
-    @FXML
-    private JFXButton btnUpdate;
-    @FXML
-    private JFXButton btnRemove;
-    @FXML
-    private JFXButton btnOrder;
-    @FXML
-    private JFXButton btnProduct;
-    @FXML
-    private JFXButton btnInventory;
-    @FXML
-    private JFXButton btnSupplier;
-    @FXML
-    private JFXButton btnEmployee;
-    @FXML
-    private JFXButton btnSales;
+
+
+    private final InventoryBo inventoryBo = BoFactory.getInstance().getBo(BoType.INVENTORY);
+    private final SupplierBo supplierBo = BoFactory.getInstance().getBo(BoType.SUPPLIER);
 
     public void btnOrderOnAction() throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/system_pages/order_page.fxml")).load();
@@ -119,22 +111,140 @@ public class InventoryPageFormController implements Initializable {
         inventoryPane.getChildren().add(parent);
     }
 
+
+
+    public void btnSearchOnAction() {
+        try {
+            Inventory inventory = inventoryBo.search(searchProdId.getText());
+            txtProductId.setText(inventory.getProductId());
+            txtProductName.setText(inventory.getProductName());
+            cmbCategory.setValue(inventory.getCategory());
+            cmbSupplier.setValue(inventory.getSupplierId());
+            txtQtyOnHand.setText(inventory.getQtyOnHand()+"");
+            txtUnitPrice.setText(inventory.getUnitPrice()+"");
+            txtInventoryTotal.setText(inventory.getTotalInventoryPrice()+"");
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR,"Invalid product ID.Check the product ID.");
+        }
+    }
+
+    public void btnAddInventoryOnAction() {
+        try {
+            int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText()) + Integer.parseInt(txtReceivedQty.getText());
+            Inventory inventory = new Inventory(
+                    txtProductId.getText(),
+                    txtProductName.getText(),
+                    cmbCategory.getValue(),
+                    cmbSupplier.getValue(),
+                    qtyOnHand,
+                    Integer.parseInt(txtReceivedQty.getText()),
+                    Double.parseDouble(txtUnitPrice.getText()),
+                    Double.parseDouble(txtInventoryTotal.getText())
+            );
+            boolean b = inventoryBo.persist(inventory);
+            if(b){
+                new Alert(Alert.AlertType.CONFIRMATION,"Inventory added successfully.");
+                cleanField();
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Inventory  not added.");
+                cleanField();
+            }
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.WARNING,"Data can't bind Check if all the text fields are filled.");
+        }
+    }
+
+    public void btnUpdateOnAction() {
+        try {
+            int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText()) + Integer.parseInt(txtReceivedQty.getText());
+            Inventory inventory = new Inventory(
+                    txtProductId.getText(),
+                    txtProductName.getText(),
+                    cmbCategory.getValue(),
+                    cmbSupplier.getValue(),
+                    qtyOnHand,
+                    Integer.parseInt(txtReceivedQty.getText()),
+                    Double.parseDouble(txtUnitPrice.getText()),
+                    Double.parseDouble(txtInventoryTotal.getText())
+            );
+            boolean b = inventoryBo.update(inventory);
+            if(b){
+                new Alert(Alert.AlertType.CONFIRMATION,"Inventory updated successfully.");
+                cleanField();
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Inventory not updated.");
+                cleanField();
+            }
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.WARNING,"Data can't bind Check if all the text fields are filled.");
+        }
+    }
+
+    public void btnRemoveOnAction() {
+        if(!Objects.equals(searchProdId.getText(), "")){
+            boolean delete = inventoryBo.delete(txtProductId.getText());
+            if(delete){
+                new Alert(Alert.AlertType.CONFIRMATION,"Supplier deleted success.");
+                cleanField();
+            }else{
+                new Alert(Alert.AlertType.WARNING,"Enter a correct Supplier ID.");
+                cleanField();
+            }
+        }else{
+            new Alert(Alert.AlertType.ERROR,"Enter the Supplier ID to search the supplier.");
+        }
+    }
+
+    public void btnGenerateReportOnAction(ActionEvent actionEvent) {
+    }
+
+    private void loadTable(){
+        ObservableList<Inventory> inventories = inventoryBo.searchAll();
+        tblInventory.setItems(inventories);
+    }
+
+    private void loadAllSupplierIds(){
+        ObservableList<String> allIds = supplierBo.getAllIds();
+        cmbSupplier.setItems(allIds);
+
+    }
+
+    private void loadAllCategories(){
+        ObservableList<String> categories = FXCollections.observableArrayList();
+        categories.addAll("Shirt/T shirt","Pants/Jeans","Shorts","Outerwear","Activewear",
+                "Dresses","Tops","Bottoms/Skirts","Swimwear","Sleepwear","School Uniforms",
+                "Hats","Belts","Handbags","Sunglasses","Wallets","Sneakers/Shoes","Sandals/Slippers",
+                "Boots","Heels"
+        );
+        cmbCategory.setItems(categories);
+    }
+
+    private void cleanField(){
+        searchProdId.setText("");
+        txtProductId.setText("");
+        txtProductName.setText("");
+        cmbSupplier.setValue("Select Supplier");
+        cmbCategory.setValue("Select Category");
+        txtQtyOnHand.setText("");
+        txtReceivedQty.setText("");
+        txtUnitPrice.setText("");
+        txtInventoryTotal.setText("");
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        btnOrder.setDefaultButton(true);
+        colProductId.setCellValueFactory(new PropertyValueFactory<>("productId"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        colSupplierId.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
+        colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
+        colReceivedQty.setCellValueFactory(new PropertyValueFactory<>("receivedQty"));
+        colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        colTotalPrice.setCellValueFactory(new PropertyValueFactory<>("totalInventoryPrice"));
+        loadAllCategories();
+        loadAllSupplierIds();
+        loadTable();
 
-    }
-
-    public void btnSearchOnAction(ActionEvent actionEvent) {
-    }
-
-    public void btnAddInventoryOnAction(ActionEvent actionEvent) {
-    }
-
-    public void btnUpdateOnAction(ActionEvent actionEvent) {
-    }
-
-    public void btnRemoveOnAction(ActionEvent actionEvent) {
     }
 
 

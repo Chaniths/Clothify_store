@@ -22,5 +22,5 @@ public class EmployeeEntity {
     private String nationalId;
     private String contact;
     private String address;
-    private Date employmentStart;
+    private Date recruited;
 }

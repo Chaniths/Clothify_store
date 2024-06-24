@@ -12,8 +12,8 @@ public class Order {
     private String customerId;
     private String customerName;
     private String contact;
-    private String productId;
-    private String productName;
+   // private String productId;
+   //private String productName;
     private Integer qty;
     private  Double amount;
     private Double total;

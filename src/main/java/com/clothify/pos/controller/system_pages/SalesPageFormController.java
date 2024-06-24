@@ -1,5 +1,8 @@
 package com.clothify.pos.controller.system_pages;
 
+import com.clothify.pos.bo.BoFactory;
+import com.clothify.pos.bo.custom.InventoryBo;
+import com.clothify.pos.util.BoType;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +16,8 @@ import java.io.IOException;
 public class SalesPageFormController {
     @FXML
     public AnchorPane salesPane;
-    public JFXButton btnCustomer;
+    @FXML
+    private JFXButton btnCustomer;
     @FXML
     private JFXButton btnOrder;
     @FXML
@@ -26,6 +30,8 @@ public class SalesPageFormController {
     private JFXButton btnEmployee;
     @FXML
     private JFXButton btnSales;
+
+    private final InventoryBo inventoryBo = BoFactory.getInstance().getBo(BoType.INVENTORY);
 
     public void btnOrderOnAction() throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/system_pages/order_page.fxml")).load();

@@ -5,9 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.awt.*;
-import java.lang.reflect.Type;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,11 +14,10 @@ public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private Integer productId;
+    private String productId;
     private String productName;
-    private Integer supplierId;
+    private String supplierId;
     private Double unitPrice;
     private String category;
     private Integer qty;
-    private Image img;
 }

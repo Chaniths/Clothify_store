@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Supplier {
     private String supplierId;
     private String supplierName;
-    private Integer productId;
+    private String productId;
     private String productName;
     private String contact;
     private String email;

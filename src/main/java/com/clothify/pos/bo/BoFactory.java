@@ -1,7 +1,6 @@
 package com.clothify.pos.bo;
 
-import com.clothify.pos.bo.custom.impl.LoginBoImpl;
-import com.clothify.pos.bo.custom.impl.OrderBoImpl;
+import com.clothify.pos.bo.custom.impl.*;
 import com.clothify.pos.util.BoType;
 
 import java.util.Objects;
@@ -16,14 +15,20 @@ public class BoFactory {
         return instance != null ? instance :(instance = new BoFactory());
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends SuperBo>T getBo (BoType type){
 
-        if (Objects.requireNonNull(type) == BoType.LOGIN) {
-            return (T) new LoginBoImpl();
-        } else if (type == BoType.ORDER) {
-            return (T) new OrderBoImpl();
+        switch (type){
+            case LOGIN: return (T) new LoginBoImpl();
+            case ORDER: return (T) new OrderBoImpl();
+            case PRODUCT: return (T) new ProductBoImpl();
+            case INVENTORY: return (T) new InventoryBoImpl();
+            case CUSTOMER: return  (T) new CustomerBoImpl();
+            case EMPLOYEE: return  (T) new EmployeeBoImpl();
+            case SUPPLIER: return (T) new SupplierBoImpl();
+            default:
+                throw new IllegalArgumentException("Unsupported BoType: " + type);
         }
-        return null;
     }
 
 }
