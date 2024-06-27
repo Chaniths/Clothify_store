@@ -8,5 +8,7 @@ public enum DaoType {
     INVENTORY,
     EMPLOYEE,
     PRODUCT,
-    SUPPLIER
+    SUPPLIER,
+    OrderDetail
+
 }

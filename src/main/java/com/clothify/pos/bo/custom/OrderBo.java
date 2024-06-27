@@ -18,7 +18,7 @@ public interface OrderBo extends SuperBo {
 
     String getLatestId();
 
-    Integer count();
+    long count();
 
 
 }

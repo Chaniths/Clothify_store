@@ -20,5 +20,5 @@ public interface ProductBo extends SuperBo {
 
     String getLatestId();
 
-    int count();
+    long count();
 }

@@ -6,6 +6,7 @@ import com.clothify.pos.dto.Customer;
 import com.clothify.pos.util.BoType;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -62,48 +63,56 @@ public class CustomerFormController implements Initializable {
 
     private final CustomerBo customerBo = BoFactory.getInstance().getBo(BoType.CUSTOMER);
 
-    public void btnOrderOnAction() throws IOException {
+    @FXML
+    public void btnOrderOnAction(ActionEvent actionEvent) throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/system_pages/order_page.fxml")).load();
         customerPane.getChildren().clear();
         customerPane.getChildren().add(parent);
     }
 
-    public void btnSupplierOnAction() throws IOException {
+    @FXML
+    public void btnSupplierOnAction(ActionEvent actionEvent) throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/system_pages/supplier_page.fxml")).load();
         customerPane.getChildren().clear();
         customerPane.getChildren().add(parent);
 
     }
 
-    public void btnInventoryOnAction() throws IOException {
+    @FXML
+    public void btnInventoryOnAction(ActionEvent actionEvent) throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/system_pages/inventory_page.fxml")).load();
         customerPane.getChildren().clear();
         customerPane.getChildren().add(parent);
     }
 
-    public void btnProductOnAction() throws IOException {
+    @FXML
+    public void btnProductOnAction(ActionEvent actionEvent) throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/system_pages/product_page.fxml")).load();
         customerPane.getChildren().clear();
         customerPane.getChildren().add(parent);
     }
 
-    public void btnSalesOnAction() throws IOException {
+    @FXML
+    public void btnSalesOnAction(ActionEvent actionEvent) throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/system_pages/sales_page.fxml")).load();
         customerPane.getChildren().clear();
         customerPane.getChildren().add(parent);
     }
 
-    public void btnEmployeeOnAction() throws IOException {
+    @FXML
+    public void btnEmployeeOnAction(ActionEvent actionEvent) throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/system_pages/employee_page.fxml")).load();
         customerPane.getChildren().clear();
         customerPane.getChildren().add(parent);
     }
 
-    public void btnCustomerOnAction() {
+    @FXML
+    public void btnCustomerOnAction(ActionEvent actionEvent) {
         new Alert(Alert.AlertType.INFORMATION,"You are already on the Customer Page.");
     }
 
-    public void btnSearchOnAction() {
+    @FXML
+    public void btnSearchOnAction(ActionEvent actionEvent) {
         try {
             Customer customer = customerBo.search(searchContact.getText());
             txtCustomerId.setText(customer.getCustomerId());
@@ -126,7 +135,8 @@ public class CustomerFormController implements Initializable {
         }
     }
 
-    public void btnAddCustomerOnAction() {
+    @FXML
+    public void btnAddCustomerOnAction(ActionEvent actionEvent) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date date;
@@ -153,7 +163,8 @@ public class CustomerFormController implements Initializable {
         }
     }
 
-    public void btnRemoveOnAction() {
+    @FXML
+    public void btnRemoveOnAction(ActionEvent actionEvent) {
         boolean delete = customerBo.delete(txtCustomerId.getText());
         if (delete){
             new Alert(Alert.AlertType.CONFIRMATION,"Customer deleted successfully");
@@ -163,7 +174,8 @@ public class CustomerFormController implements Initializable {
         }
     }
 
-    public void btnUpdateOnAction() {
+    @FXML
+    public void btnUpdateOnAction(ActionEvent actionEvent) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date date;
@@ -189,15 +201,16 @@ public class CustomerFormController implements Initializable {
     }
 
     private void generateID() {
-        int count = customerBo.count();
+        long count = customerBo.count();
         if (count == 0) {
             lblCustomerId.setText("C0001");
+            txtCustomerId.setText("C0001");
             return; // Return after setting the initial ID
         }
 
         String latestId = customerBo.getLatestId();
         if (latestId == null || latestId.isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Can't generate an OrderID. Contact the development team for assistance.").show();
+            new Alert(Alert.AlertType.WARNING, "Can't generate an CustomerId. Contact the development team for assistance.").show();
             return;
         }
 
@@ -206,7 +219,8 @@ public class CustomerFormController implements Initializable {
         if (matcher.find()) {
             int number = Integer.parseInt(matcher.group(1));
             number++;
-            lblCustomerId.setText(String.format("C%04d", number)); // Ensure the correct prefix
+            lblCustomerId.setText(String.format("C%04d", number));// Ensure the correct prefix
+            txtCustomerId.setText(String.format("C%04d", number));
         } else {
             new Alert(Alert.AlertType.WARNING, "Can't generate an OrderID. Contact the development team for assistance.").show();
         }

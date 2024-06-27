@@ -19,6 +19,6 @@ public interface CustomerBo extends SuperBo {
 
     String getLatestId();
 
-    int count();
+    long count();
 
 }

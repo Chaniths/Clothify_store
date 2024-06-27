@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 public class LoginEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Integer num;
+    @Column(unique = true)
     private String loginId;
     private String adminType;
     private String email;

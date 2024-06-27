@@ -20,5 +20,5 @@ public interface SupplierBo extends SuperBo {
 
     String getLatestId();
 
-    int count();
+    long count();
 }

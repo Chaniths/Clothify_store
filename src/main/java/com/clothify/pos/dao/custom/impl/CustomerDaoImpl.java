@@ -87,10 +87,10 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public int count(){
+    public long count(){
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        int singleResult = (int) session.createQuery("SELECT COUNT(*) FROM Customer").getSingleResult();
+        long singleResult = (long) session.createQuery("SELECT COUNT(*) FROM Customer").getSingleResult();
         session.close();
         return singleResult;
     }

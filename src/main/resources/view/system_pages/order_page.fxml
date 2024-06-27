@@ -44,7 +44,7 @@
    </ImageView>
    <Rectangle arcHeight="60.0" arcWidth="60.0" fill="#f2f9ff" height="775.0" layoutX="328.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="820.0" AnchorPane.bottomAnchor="101.0" AnchorPane.leftAnchor="328.0" AnchorPane.rightAnchor="52.0" AnchorPane.topAnchor="20.0" />
    <Rectangle arcHeight="60.0" arcWidth="60.0" fill="WHITE" height="573.0" layoutX="386.0" layoutY="145.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="705.0" AnchorPane.leftAnchor="386.0" AnchorPane.rightAnchor="109.0" />
-   <JFXTextField fx:id="txtQty" layoutX="463.0" layoutY="311.0" onAction="#txtCalculateAmount" prefHeight="27.0" prefWidth="178.0" promptText="Product Name" text="Qty">
+   <JFXTextField fx:id="txtQty" layoutX="463.0" layoutY="311.0" onKeyTyped="#txtCalculateAmount" prefHeight="27.0" prefWidth="178.0" promptText="Product Name" text="Qty">
       <font>
          <Font size="14.0" />
       </font>

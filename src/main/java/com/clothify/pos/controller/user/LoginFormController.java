@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 public class LoginFormController implements Initializable {
 
     @FXML
-    private JFXComboBox cmbRole;
+    private JFXComboBox<String> cmbRole;
     @FXML
     private AnchorPane loginPane;
     @FXML

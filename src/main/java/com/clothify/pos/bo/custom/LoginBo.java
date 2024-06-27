@@ -17,4 +17,8 @@ public interface LoginBo extends SuperBo {
 
     Map<String,String> getEmailData(String email);
 
+    String getLatestId();
+
+    long count();
+
 }

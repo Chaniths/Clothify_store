@@ -18,6 +18,6 @@ public interface CustomerDao extends SuperDao {
 
     String getLatestId();
 
-    int count();
+    long count();
 
 }

@@ -6,24 +6,29 @@ import com.clothify.pos.dao.custom.InventoryDao;
 import com.clothify.pos.dto.Inventory;
 import com.clothify.pos.entity.InventoryEntity;
 import com.clothify.pos.util.DaoType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.modelmapper.ModelMapper;
 
 public class InventoryBoImpl implements InventoryBo {
 
     private final InventoryDao inventoryDao = DaoFactory.getInstance().getDao(DaoType.INVENTORY);
-    ModelMapper mapper = new ModelMapper();
+    ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public boolean persist(Inventory inventory) {
-        return inventoryDao.persist(mapper.map(inventory, InventoryEntity.class));
+        return inventoryDao.persist(mapper.convertValue(inventory, InventoryEntity.class));
     }
 
     @Override
     public boolean update(Inventory inventory) {
-        return inventoryDao.update(mapper.map(inventory, InventoryEntity.class));
+        return inventoryDao.update(mapper.convertValue(inventory, InventoryEntity.class));
     }
+
+   @Override
+    public boolean updateStock(String productId, Integer qty) {
+       return inventoryDao.updateStock(productId,qty);
+   }
 
     @Override
     public boolean delete(String id) {
@@ -32,7 +37,7 @@ public class InventoryBoImpl implements InventoryBo {
 
     @Override
     public Inventory search(String id) {
-        return mapper.map(inventoryDao.search(id), Inventory.class);
+        return mapper.convertValue(inventoryDao.search(id), Inventory.class);
     }
 
     @Override
@@ -40,7 +45,7 @@ public class InventoryBoImpl implements InventoryBo {
         ObservableList<InventoryEntity> inventoryEntities = inventoryDao.searchAll();
         ObservableList<Inventory> inventories = FXCollections.observableArrayList();
         inventoryEntities.forEach(inventoryEntity ->
-                inventories.add(mapper.map(inventoryEntity, Inventory.class))
+                inventories.add(mapper.convertValue(inventoryEntity, Inventory.class))
                 );
         return inventories;
     }
@@ -51,7 +56,7 @@ public class InventoryBoImpl implements InventoryBo {
     }
 
     @Override
-    public Integer count() {
+    public long count() {
         return inventoryDao.count();
     }
 }

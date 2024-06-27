@@ -26,6 +26,7 @@ public class DaoFactory {
            case INVENTORY:return (T) new InventoryDaoImpl();
            case PRODUCT:return (T) new ProductDaoImpl();
            case SUPPLIER:return (T) new SupplierDaoImpl();
+           case OrderDetail:return (T) new OrderDetailsDaoImpl();
            default:
                throw new IllegalArgumentException("Unsupported DaoType: " + type);
        }

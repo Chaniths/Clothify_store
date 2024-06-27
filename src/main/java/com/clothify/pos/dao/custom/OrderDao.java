@@ -19,5 +19,5 @@ public interface OrderDao extends SuperDao {
 
     String getLatestId();
 
-    Integer count();
+    long count();
 }

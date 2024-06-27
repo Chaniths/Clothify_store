@@ -26,10 +26,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         Query query = session.createQuery(
-                "UPDATE Employee SET employeeName=:employeeName,age=:age,nationalId=:nationalId,contact=:contact,address=:address,recruited=:recruited WHERE employeeId=:employeeId");
+                "UPDATE Employee SET employeeName=:employeeName,age=:age,nic=:nic,contact=:contact,address=:address,recruited=:recruited WHERE employeeId=:employeeId");
         query.setParameter("employeeName",entity.getEmployeeName());
         query.setParameter("age",entity.getAge());
-        query.setParameter("nationalId",entity.getNationalId());
+        query.setParameter("nic",entity.getNic());
         query.setParameter("contact",entity.getContact());
         query.setParameter("address",entity.getAddress());
         query.setParameter("recruited",entity.getRecruited());
@@ -87,10 +87,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public int count(){
+    public long count(){
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        int singleResult = (int) session.createQuery("SELECT COUNT(*) FROM Employee").getSingleResult();
+        long singleResult = (long) session.createQuery("SELECT COUNT(*) FROM Employee").getSingleResult();
         session.close();
         return singleResult;
     }

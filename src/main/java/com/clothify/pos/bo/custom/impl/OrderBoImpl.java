@@ -6,19 +6,19 @@ import com.clothify.pos.dao.custom.OrderDao;
 import com.clothify.pos.dto.Order;
 import com.clothify.pos.entity.OrderEntity;
 import com.clothify.pos.util.DaoType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.modelmapper.ModelMapper;
 
 public class OrderBoImpl implements OrderBo {
 
     private final OrderDao orderDao = DaoFactory.getInstance().getDao(DaoType.ORDER);
-    ModelMapper mapper = new ModelMapper();
+    ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public boolean persist(Order order) {
         return orderDao.persist(
-                mapper.map(order, OrderEntity.class)
+                mapper.convertValue(order, OrderEntity.class)
         );
     }
 
@@ -26,7 +26,7 @@ public class OrderBoImpl implements OrderBo {
     public boolean update(Order order) {
 
         return orderDao.update(
-                mapper.map(order, OrderEntity.class)
+                mapper.convertValue(order, OrderEntity.class)
         );
     }
 
@@ -37,7 +37,7 @@ public class OrderBoImpl implements OrderBo {
 
     @Override
     public Order search(String id) {
-        return mapper.map(
+        return mapper.convertValue(
                 orderDao.search(id),Order.class
         );
     }
@@ -47,7 +47,7 @@ public class OrderBoImpl implements OrderBo {
         ObservableList<OrderEntity> orderEntities = orderDao.searchAll();
         ObservableList<Order> orders = FXCollections.observableArrayList();
         orderEntities.forEach(entity ->
-                orders.add(mapper.map(entity,Order.class))
+                orders.add(mapper.convertValue(entity,Order.class))
         );
         return orders;
     }
@@ -58,7 +58,7 @@ public class OrderBoImpl implements OrderBo {
     }
 
     @Override
-    public Integer count() {
+    public long count() {
         return orderDao.count();
     }
 }

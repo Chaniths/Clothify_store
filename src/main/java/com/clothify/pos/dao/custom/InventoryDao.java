@@ -10,6 +10,8 @@ public interface InventoryDao extends SuperDao {
 
     boolean update(InventoryEntity entity);
 
+    boolean updateStock(String productId,Integer qty);
+
     boolean delete(String id);
 
     InventoryEntity search(String id);
@@ -18,6 +20,6 @@ public interface InventoryDao extends SuperDao {
 
     String getLatestId();
 
-    Integer count();
+    long count();
 
 }

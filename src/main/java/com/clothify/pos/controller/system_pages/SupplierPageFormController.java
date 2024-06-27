@@ -1,6 +1,7 @@
 package com.clothify.pos.controller.system_pages;
 
 import com.clothify.pos.bo.BoFactory;
+import com.clothify.pos.bo.custom.ProductBo;
 import com.clothify.pos.bo.custom.SupplierBo;
 import com.clothify.pos.dto.Supplier;
 import com.clothify.pos.util.BoType;
@@ -65,47 +66,56 @@ public class SupplierPageFormController implements Initializable {
 
 
     private final SupplierBo supplierBo = BoFactory.getInstance().getBo(BoType.SUPPLIER);
+    private final ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
 
-    public void btnOrderOnAction() throws IOException {
+    @FXML
+    public void btnOrderOnAction(ActionEvent actionEvent) throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/system_pages/order_page.fxml")).load();
         supplierPane.getChildren().clear();
         supplierPane.getChildren().add(parent);
     }
 
-    public void btnProductOnAction() throws IOException {
+    @FXML
+    public void btnProductOnAction(ActionEvent actionEvent) throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/system_pages/product_page.fxml")).load();
         supplierPane.getChildren().clear();
         supplierPane.getChildren().add(parent);
     }
 
-    public void btnInventoryOnAction() throws IOException {
+    @FXML
+    public void btnInventoryOnAction(ActionEvent actionEvent) throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/system_pages/inventory_page.fxml")).load();
         supplierPane.getChildren().clear();
         supplierPane.getChildren().add(parent);
     }
 
-    public void btnSupplierOnAction() {
+    @FXML
+    public void btnSupplierOnAction(ActionEvent actionEvent) {
         new Alert(Alert.AlertType.INFORMATION,"You are already on the Supplier Page");
     }
 
-    public void btnEmployeeOnAction() throws IOException {
+    @FXML
+    public void btnEmployeeOnAction(ActionEvent actionEvent) throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/system_pages/employee_page.fxml")).load();
         supplierPane.getChildren().clear();
         supplierPane.getChildren().add(parent);
     }
 
-    public void btnSalesOnAction() throws IOException {
+    @FXML
+    public void btnSalesOnAction(ActionEvent actionEvent) throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/system_pages/sales_page.fxml")).load();
         supplierPane.getChildren().clear();
         supplierPane.getChildren().add(parent);
     }
-    public void btnCustomerOnAction() throws IOException {
+    @FXML
+    public void btnCustomerOnAction(ActionEvent actionEvent) throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/system_pages/customer_page.fxml")).load();
         supplierPane.getChildren().clear();
         supplierPane.getChildren().add(parent);
     }
 
-    public void btnAddCustomerOnAction() {
+    @FXML
+    public void btnAddCustomerOnAction(ActionEvent actionEvent) {
         try {
             Supplier supplier = new Supplier(
                     lblSupplierId.getText(),
@@ -131,7 +141,8 @@ public class SupplierPageFormController implements Initializable {
         }
     }
 
-    public void btnDeleteSupplierOnAction() {
+    @FXML
+    public void btnDeleteSupplierOnAction(ActionEvent actionEvent) {
         if(!Objects.equals(txtSupplierId.getText(), "")){
             boolean delete = supplierBo.delete(txtSupplierId.getText());
             if(delete){
@@ -147,7 +158,8 @@ public class SupplierPageFormController implements Initializable {
 
     }
 
-    public void btnUpdateSupplierOnAction() {
+    @FXML
+    public void btnUpdateSupplierOnAction(ActionEvent actionEvent) {
         try {
             Supplier supplier = new Supplier(
                     txtSupplierId.getText(),
@@ -158,10 +170,13 @@ public class SupplierPageFormController implements Initializable {
                     txtEmail.getText(),
                     txtCompany.getText()
             );
+            System.out.println(supplier);
             boolean b = supplierBo.update(supplier);
+            System.out.println("Done");
             if(b){
                 new Alert(Alert.AlertType.CONFIRMATION,"Supplier Updated successfully.");
                 clearField();
+                generateID();
             }else{
                 new Alert(Alert.AlertType.ERROR,"Supplier not Updated.");
                 clearField();
@@ -172,7 +187,8 @@ public class SupplierPageFormController implements Initializable {
     }
 
 
-    public void btnSearchOnAction() {
+    @FXML
+    public void btnSearchOnAction(ActionEvent actionEvent) {
         if(!Objects.equals(txtSupplierId.getText(), "")){
             try {
                 Supplier supplier = supplierBo.search(txtSupplierId.getText());
@@ -197,7 +213,7 @@ public class SupplierPageFormController implements Initializable {
     }
 
     private void generateID() {
-        int count = supplierBo.count();
+        long count = supplierBo.count();
         if (count == 0) {
             lblSupplierId.setText("S0001");
             return; // Return after setting the initial ID
@@ -216,7 +232,7 @@ public class SupplierPageFormController implements Initializable {
             number++;
             lblSupplierId.setText(String.format("S%04d", number)); // Ensure the correct prefix
         } else {
-            new Alert(Alert.AlertType.WARNING, "Can't generate an OrderID. Contact the development team for assistance.").show();
+            new Alert(Alert.AlertType.WARNING, "Can't generate an SupplierID. Contact the development team for assistance.").show();
         }
     }
 
@@ -245,6 +261,7 @@ public class SupplierPageFormController implements Initializable {
 
     }
 
+    @FXML
     public void btnGenerateReportOnAction(ActionEvent actionEvent) {
     }
 }

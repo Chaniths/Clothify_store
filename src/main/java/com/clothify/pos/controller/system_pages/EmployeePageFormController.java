@@ -108,10 +108,10 @@ public class EmployeePageFormController implements Initializable {
             txtEmployeeAge.setText(employee.getAge()+"");
             txtAddress.setText(employee.getAddress());
             txtContact.setText(employee.getContact());
-            txtNic.setText(employee.getNationalId());
+            txtNic.setText(employee.getNic());
             lblEmployeeId.setText(employee.getEmployeeId());
             lblEmployeeName.setText(employee.getEmployeeName());
-            lblNic.setText(employee.getNationalId());
+            lblNic.setText(employee.getNic());
             lblAddress.setText(employee.getAddress());
             lblEmployeeAge.setText(employee.getAge()+"");
             lblContact.setText(employee.getContact());
@@ -193,7 +193,7 @@ public class EmployeePageFormController implements Initializable {
     }
 
     private void generateID() {
-        int count = employeeBo.count();
+        long count = employeeBo.count();
         if (count == 0) {
             lblEmployeeId.setText("E0001");
             return; // Return after setting the initial ID

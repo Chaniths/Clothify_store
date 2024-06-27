@@ -97,6 +97,7 @@ public class LoginDaoImpl implements LoginDao {
     }
 
     //Last Id
+    @Override
     public String getLatestId() {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
@@ -107,10 +108,11 @@ public class LoginDaoImpl implements LoginDao {
         return id;
     }
 
-    public Integer count(){
+    @Override
+    public long count(){
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        int singleResult = (int) session.createQuery("SELECT COUNT(*) FROM Login").getSingleResult();
+        long singleResult = (long) session.createQuery("SELECT COUNT(*) FROM Login").getSingleResult();
         session.close();
         return singleResult;
     }

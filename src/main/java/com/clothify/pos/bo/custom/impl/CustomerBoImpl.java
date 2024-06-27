@@ -6,23 +6,24 @@ import com.clothify.pos.dao.custom.CustomerDao;
 import com.clothify.pos.dto.Customer;
 import com.clothify.pos.entity.CustomerEntity;
 import com.clothify.pos.util.DaoType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.modelmapper.ModelMapper;
 
 public class CustomerBoImpl implements CustomerBo {
 
    private  final CustomerDao customerDao = DaoFactory.getInstance().getDao(DaoType.CUSTOMER);
-   ModelMapper mapper = new ModelMapper();
+  ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public boolean persist(Customer customer) {
-        return customerDao.persist(mapper.map(customer, CustomerEntity.class));
+        CustomerEntity entity = mapper.convertValue(customer, CustomerEntity.class);
+        return  customerDao.persist(entity);
     }
 
     @Override
     public boolean update(Customer customer) {
-        return customerDao.update(mapper.map(customer, CustomerEntity.class));
+        return customerDao.update(mapper.convertValue(customer, CustomerEntity.class));
     }
 
     @Override
@@ -33,14 +34,14 @@ public class CustomerBoImpl implements CustomerBo {
     @Override
     public Customer search(String contact) {
         CustomerEntity entity = customerDao.search(contact);
-        return mapper.map(entity, Customer.class);
+        return mapper.convertValue(entity, Customer.class);
     }
 
     @Override
     public ObservableList<Customer> searchAll() {
         ObservableList<Customer> customers = FXCollections.observableArrayList();
         ObservableList<CustomerEntity> customerEntities = customerDao.searchAll();
-        customerEntities.forEach(entity -> customers.add(mapper.map(entity,Customer.class)));
+        customerEntities.forEach(entity -> customers.add(mapper.convertValue(entity,Customer.class)));
         return customers;
     }
 
@@ -50,7 +51,7 @@ public class CustomerBoImpl implements CustomerBo {
     }
 
     @Override
-    public int count() {
+    public long count() {
         return customerDao.count();
     }
 }

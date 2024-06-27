@@ -6,6 +6,7 @@ import com.clothify.pos.util.HibernateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -40,6 +41,32 @@ public class InventoryDaoImpl implements InventoryDao {
         session.close();
         return i>0;
     }
+
+   @Override
+    public boolean updateStock(String productId, Integer qty) {
+       Session session = null;
+       Transaction transaction = null;
+       try {
+           session = HibernateUtil.getSession();
+           transaction = session.getTransaction();
+           transaction.begin();
+           Query query = session.createQuery("UPDATE Inventory SET qtyOnHand = qtyOnHand - :qty WHERE productId = :productId");
+           query.setParameter("qty", qty);
+           query.setParameter("productId", productId);
+           int i = query.executeUpdate();
+           transaction.commit();
+           return i > 0;
+       } catch (Exception e) {
+           if (transaction != null) {
+               transaction.rollback();
+           }
+           return false;
+       } finally {
+           if (session != null) {
+               session.close();
+           }
+       }
+   }
 
     @Override
     public boolean delete(String id) {
@@ -88,10 +115,10 @@ public class InventoryDaoImpl implements InventoryDao {
     }
 
     @Override
-    public Integer count(){
+    public long count(){
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        int singleResult = (int) session.createQuery("SELECT COUNT(*) FROM Inventory").getSingleResult();
+        long singleResult = (long) session.createQuery("SELECT COUNT(*) FROM Inventory").getSingleResult();
         session.close();
         return singleResult;
     }

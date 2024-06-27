@@ -5,23 +5,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "Order")
-@Table(name = "Order")
+@Entity(name = "Orders")
+@Table(name = "Orders")
 public class OrderEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @Column(unique = true)
     private String orderId;
     private String customerId;
     private String customerName;
     private String contact;
-    private String productId;
-    private String productName;
-    private Integer qty;
-    private  Double amount;
+    private LocalDateTime date;
     private Double total;
     private Boolean status;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderDetailEntity> orderDetails;
 }

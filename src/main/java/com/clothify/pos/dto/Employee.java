@@ -13,7 +13,7 @@ public class Employee {
     private String employeeId;
     private String employeeName;
     private int age;
-    private String nationalId;
+    private String nic;
     private String contact;
     private String address;
     private Date recruited;

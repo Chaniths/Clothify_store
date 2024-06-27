@@ -6,23 +6,23 @@ import com.clothify.pos.dao.custom.EmployeeDao;
 import com.clothify.pos.dto.Employee;
 import com.clothify.pos.entity.EmployeeEntity;
 import com.clothify.pos.util.DaoType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.modelmapper.ModelMapper;
 
 public class EmployeeBoImpl implements EmployeeBo {
 
     private final EmployeeDao employeeDao = DaoFactory.getInstance().getDao(DaoType.EMPLOYEE);
-    ModelMapper mapper = new ModelMapper();
+    ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public boolean persist(Employee employee) {
-        return employeeDao.persist(mapper.map(employee, EmployeeEntity.class));
+        return employeeDao.persist(mapper.convertValue(employee, EmployeeEntity.class));
     }
 
     @Override
     public boolean update(Employee employee) {
-        return employeeDao.update(mapper.map(employee, EmployeeEntity.class));
+        return employeeDao.update(mapper.convertValue(employee, EmployeeEntity.class));
     }
 
     @Override
@@ -32,14 +32,14 @@ public class EmployeeBoImpl implements EmployeeBo {
 
     @Override
     public Employee search(String id) {
-       return mapper.map(employeeDao.search(id),Employee.class);
+       return mapper.convertValue(employeeDao.search(id),Employee.class);
     }
 
     @Override
     public ObservableList<Employee> searchAll() {
         ObservableList<EmployeeEntity> employeeEntities = employeeDao.searchAll();
         ObservableList<Employee> employees = FXCollections.observableArrayList();
-        employeeEntities.forEach(entity -> employees.add(mapper.map(entity, Employee.class)));
+        employeeEntities.forEach(entity -> employees.add(mapper.convertValue(entity, Employee.class)));
         return employees;
     }
 
@@ -49,7 +49,7 @@ public class EmployeeBoImpl implements EmployeeBo {
     }
 
     @Override
-    public int count() {
+    public long count() {
         return employeeDao.count();
     }
 }

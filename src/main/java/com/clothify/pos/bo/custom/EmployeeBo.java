@@ -17,5 +17,5 @@ public interface EmployeeBo extends SuperBo {
 
     String getLatestId();
 
-    int count();
+    long count();
 }

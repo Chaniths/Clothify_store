@@ -90,6 +90,16 @@ public class LoginBoImpl implements LoginBo {
         return hashMap;
     }
 
+    @Override
+    public String getLatestId() {
+        return loginDao.getLatestId();
+    }
+
+    @Override
+    public long count() {
+        return loginDao.count();
+    }
+
 
     public Message prepareMessage(Session session, String myEmail, String receiveEmail, String text) {
         try {

@@ -6,7 +6,6 @@ import com.clothify.pos.util.HibernateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.hibernate.Session;
-import org.hibernate.query.Order;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -27,14 +26,11 @@ public class OrderDaoImpl implements OrderDao {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         Query query = session.createQuery(
-                "UPDATE Order SET customerId=:customerId,customerName=:customerName,contact=:contact,productId=:productId,productName=:productName,qty=:qty,amount=:amount,total=:total,status=:status WHERE orderId=:orderId");
+                "UPDATE Orders SET customerId=:customerId,customerName=:customerName,contact=:contact,orderDetails=:orderDetails,total=:total,status=:status WHERE orderId=:orderId");
         query.setParameter("customerId",entity.getCustomerId());
         query.setParameter("customerName",entity.getCustomerName());
         query.setParameter("contact",entity.getContact());
-        query.setParameter("productId",entity.getProductId());
-        query.setParameter("productName",entity.getProductName());
-        query.setParameter("qty",entity.getQty());
-        query.setParameter("amount",entity.getAmount());
+        query.setParameter("orderDetails",entity.getOrderDetails());
         query.setParameter("total",entity.getTotal());
         query.setParameter("status",entity.getStatus());
         query.setParameter("orderId",entity.getOrderId());
@@ -48,7 +44,7 @@ public class OrderDaoImpl implements OrderDao {
     public boolean delete(String orderId) {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("DELETE FROM Order WHERE orderId=:orderId");
+        Query query = session.createQuery("DELETE FROM Orders WHERE orderId=:orderId");
         query.setParameter("orderId",orderId);
         int i = query.executeUpdate();
         session.getTransaction().commit();
@@ -60,7 +56,7 @@ public class OrderDaoImpl implements OrderDao {
     public OrderEntity search(String id) {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("FROM Order WHERE orderId=:orderId");
+        Query query = session.createQuery("FROM Orders WHERE orderId=:orderId");
         query.setParameter("orderId",id);
         OrderEntity orderEntity = (OrderEntity) query.uniqueResult();
         session.close();
@@ -71,7 +67,7 @@ public class OrderDaoImpl implements OrderDao {
     public ObservableList<OrderEntity> searchAll() {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        List<OrderEntity> entityList = session.createQuery("FROM Order").list();
+        List<OrderEntity> entityList = session.createQuery("FROM Orders").list();
         ObservableList<OrderEntity> orderList = FXCollections.observableArrayList();
         orderList.addAll(entityList);
         session.close();
@@ -83,17 +79,17 @@ public class OrderDaoImpl implements OrderDao {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
 
-        Query query = session.createQuery("SELECT orderId FROM Order ORDER BY orderId DESC LIMIT 1");
+        Query query = session.createQuery("SELECT orderId FROM Orders ORDER BY orderId DESC LIMIT 1");
         String id = (String) query.uniqueResult();
         session.close();
         return id;
     }
 
     @Override
-    public Integer count(){
+    public long count(){
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        int singleResult = (int) session.createQuery("SELECT COUNT(*) FROM Order").getSingleResult();
+        long singleResult = (long) session.createQuery("SELECT COUNT(*) FROM Orders").getSingleResult();
         session.close();
         return singleResult;
     }

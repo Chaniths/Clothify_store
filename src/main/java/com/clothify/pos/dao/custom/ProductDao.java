@@ -20,5 +20,5 @@ public interface ProductDao extends SuperDao {
 
     String getLatestId();
 
-    int count();
+    long count();
 }

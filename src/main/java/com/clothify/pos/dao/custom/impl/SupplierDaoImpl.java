@@ -13,11 +13,13 @@ import java.util.List;
 public class SupplierDaoImpl implements SupplierDao {
   @Override
     public boolean persist(SupplierEntity entity) {
+        System.out.println("Dao");
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         session.persist(entity);
         session.getTransaction().commit();
         session.close();
+        System.out.println("Dao Done");
         return true;
     }
 
@@ -98,10 +100,10 @@ public class SupplierDaoImpl implements SupplierDao {
     }
 
     @Override
-    public int count(){
+    public long count(){
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        int singleResult = (int) session.createQuery("SELECT COUNT(*) FROM Supplier").getSingleResult();
+        long singleResult = (long) session.createQuery("SELECT COUNT(*) FROM Supplier").getSingleResult();
         session.close();
         return singleResult;
     }

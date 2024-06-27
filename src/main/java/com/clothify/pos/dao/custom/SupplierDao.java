@@ -20,5 +20,5 @@ public interface SupplierDao extends SuperDao {
 
     String getLatestId();
 
-    int count();
+    long count();
 }

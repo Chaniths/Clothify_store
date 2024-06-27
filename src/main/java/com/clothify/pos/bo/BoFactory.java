@@ -26,6 +26,7 @@ public class BoFactory {
             case CUSTOMER: return  (T) new CustomerBoImpl();
             case EMPLOYEE: return  (T) new EmployeeBoImpl();
             case SUPPLIER: return (T) new SupplierBoImpl();
+            case OrderDetail: return (T) new OrderDetailsBoImpl();
             default:
                 throw new IllegalArgumentException("Unsupported BoType: " + type);
         }

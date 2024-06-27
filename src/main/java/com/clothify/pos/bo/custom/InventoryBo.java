@@ -10,6 +10,8 @@ public interface InventoryBo extends SuperBo {
 
     boolean update(Inventory inventory);
 
+    boolean updateStock(String productId,Integer qty);
+
     boolean delete(String id);
 
     Inventory search(String id);
@@ -18,5 +20,5 @@ public interface InventoryBo extends SuperBo {
 
     String getLatestId();
 
-    Integer count();
+    long count();
 }

@@ -6,6 +6,7 @@ import com.clothify.pos.dao.custom.SupplierDao;
 import com.clothify.pos.dto.Supplier;
 import com.clothify.pos.entity.SupplierEntity;
 import com.clothify.pos.util.DaoType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.modelmapper.ModelMapper;
@@ -13,16 +14,19 @@ import org.modelmapper.ModelMapper;
 public class SupplierBoImpl implements SupplierBo {
 
     private final SupplierDao supplierDao = DaoFactory.getInstance().getDao(DaoType.SUPPLIER);
-    ModelMapper mapper = new ModelMapper();
 
+    ObjectMapper mapper = new ObjectMapper();
     @Override
     public boolean persist(Supplier supplier) {
-        return supplierDao.persist(mapper.map(supplier, SupplierEntity.class));
+        System.out.println("Bo");
+        SupplierEntity supplierEntity = mapper.convertValue(supplier, SupplierEntity.class);
+        System.out.println("Entity:"+supplierEntity);
+        return supplierDao.persist(supplierEntity);
     }
 
     @Override
     public boolean update(Supplier supplier) {
-        return supplierDao.update(mapper.map(supplier, SupplierEntity.class));
+        return supplierDao.update(mapper.convertValue(supplier, SupplierEntity.class));
     }
 
     @Override
@@ -32,7 +36,7 @@ public class SupplierBoImpl implements SupplierBo {
 
     @Override
     public Supplier search(String id) {
-        return mapper.map(supplierDao.search(id),Supplier.class);
+           return mapper.convertValue(supplierDao.search(id),Supplier.class);
     }
 
     @Override
@@ -40,7 +44,7 @@ public class SupplierBoImpl implements SupplierBo {
         ObservableList<SupplierEntity> supplierEntities = supplierDao.searchAll();
         ObservableList<Supplier> suppliers = FXCollections.observableArrayList();
         supplierEntities.forEach(entity ->
-               suppliers.add(mapper.map(entity,Supplier.class))
+               suppliers.add(mapper.convertValue(entity,Supplier.class))
                 );
         return suppliers;
     }
@@ -56,7 +60,7 @@ public class SupplierBoImpl implements SupplierBo {
     }
 
     @Override
-    public int count() {
+    public long count() {
         return supplierDao.count();
     }
 }

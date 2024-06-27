@@ -21,12 +21,14 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegisterFormController implements Initializable {
     @FXML
     private JFXPasswordField txtVerifyPassword;
     @FXML
-    private JFXComboBox cmbUserType;
+    private JFXComboBox<String> cmbUserType;
     @FXML
     private AnchorPane registerPane;
     @FXML
@@ -50,10 +52,15 @@ public class RegisterFormController implements Initializable {
    // generate a Login id .Then put the values into the new Login()
     public void btnSignUpOnAction() throws IOException {
         if (verifyFields() && txtPassword.getText().equals(txtVerifyPassword.getText())){
+            String generatedId = generateID();
+            if (generatedId == null) {
+                // Handle error appropriately, maybe throw an exception
+                throw new IllegalStateException("Failed to generate a new ID.");
+            }
             loginBo.persist(
                     new Login(
-                            "",
-                            cmbUserType.getTypeSelector(),
+                            generatedId,
+                            cmbUserType.getValue(),
                             txtEmail.getText(),
                             "",
                             txtVerifyPassword.getText()
@@ -80,6 +87,30 @@ public class RegisterFormController implements Initializable {
         list.add("ADMIN");
         list.add("USER");
         cmbUserType.setItems(list);
+    }
+
+    private String generateID() {
+        long count = loginBo.count();
+        if (count == 0) {
+            return "U0001"; // Return after setting the initial ID
+        }
+
+        String latestId = loginBo.getLatestId();
+        if (latestId == null || latestId.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Can't generate an OrderID. Contact the development team for assistance.").show();
+        }
+
+        String loginId = null;
+        Pattern pattern = Pattern.compile("U(\\d+)");
+        Matcher matcher = pattern.matcher(latestId);
+        if (matcher.find()) {
+            int number = Integer.parseInt(matcher.group(1));
+            number++;
+            loginId = String.format("U%04d", number); // Ensure the correct prefix
+        }else {
+            new Alert(Alert.AlertType.WARNING, "Can't generate an OrderID. Contact the development team for assistance.").show();
+        }
+        return loginId;
     }
 
 

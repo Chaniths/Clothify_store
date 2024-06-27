@@ -1,10 +1,7 @@
 package com.clothify.pos.controller.system_pages;
 
 import com.clothify.pos.bo.BoFactory;
-import com.clothify.pos.bo.custom.CustomerBo;
-import com.clothify.pos.bo.custom.InventoryBo;
-import com.clothify.pos.bo.custom.OrderBo;
-import com.clothify.pos.bo.custom.ProductBo;
+import com.clothify.pos.bo.custom.*;
 import com.clothify.pos.dto.*;
 import com.clothify.pos.util.BoType;
 import com.jfoenix.controls.JFXButton;
@@ -27,6 +24,9 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,15 +46,15 @@ public class OrderPageFormController implements Initializable {
     @FXML
     private TableView<CartTbl> tblOrder;
     @FXML
-    private TableColumn<CartTbl,Double> colUnitPrice;
+    private TableColumn<CartTbl, Double> colUnitPrice;
     @FXML
-    private TableColumn<CartTbl,String> colProductId;
+    private TableColumn<CartTbl, String> colProductId;
     @FXML
-    private TableColumn<CartTbl,String> colProductName;
+    private TableColumn<CartTbl, String> colProductName;
     @FXML
-    private TableColumn<CartTbl,Integer> colQty;
+    private TableColumn<CartTbl, Integer> colQty;
     @FXML
-    private TableColumn<CartTbl,Double> colAmount;
+    private TableColumn<CartTbl, Double> colAmount;
     @FXML
     private TextField txtContact;
     @FXML
@@ -78,11 +78,12 @@ public class OrderPageFormController implements Initializable {
     private final CustomerBo customerBo = BoFactory.getInstance().getBo(BoType.CUSTOMER);
     private final ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
     private final InventoryBo inventoryBo = BoFactory.getInstance().getBo(BoType.INVENTORY);
+    private final OrderDetailsBo orderDetailsBo = BoFactory.getInstance().getBo(BoType.OrderDetail);
 
-    private  ObservableList<CartTbl> cartList = FXCollections.observableArrayList();
+    private ObservableList<CartTbl> cartList = FXCollections.observableArrayList();
 
     public void btnOrderOnAction() {
-        new Alert(Alert.AlertType.INFORMATION,"You are already on the Order Page").show();
+        new Alert(Alert.AlertType.INFORMATION, "You are already on the Order Page").show();
     }
 
     public void btnProductOnAction() throws IOException {
@@ -114,6 +115,7 @@ public class OrderPageFormController implements Initializable {
         orderPane.getChildren().clear();
         orderPane.getChildren().add(parent);
     }
+
     public void btnCustomerOnAction() throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/system_pages/customer_page.fxml")).load();
         orderPane.getChildren().clear();
@@ -125,24 +127,66 @@ public class OrderPageFormController implements Initializable {
     }
 
     public void btnCancelOnAction() {
-         clearAll();
+        clearAll();
     }
+
 
     public void btnCustomerOrderOnAction() {
-        generateID();
         //when the order place change the inventory qty on hand value like qtyOnHand - qty
 
-    }
+        try {
+            List<OrderDetail> orderDetailList = new ArrayList<>();
+            //ObservableList<OrderDetail> orderDetailList = FXCollections.observableArrayList();
+            for(CartTbl cartTbl : cartList){
+                OrderDetail orderDetail = new OrderDetail(
+                        cartTbl.getProductId(),
+                        lblCustomerId.getText(),
+                        cartTbl.getQty(),
+                        cartTbl.getAmount()
+                );
+                boolean b = inventoryBo.updateStock(cartTbl.getProductId(), cartTbl.getQty());
+                if(b){
+                    orderDetailList.add(orderDetail);
+                    orderDetailsBo.persist(orderDetail);
+                }else{
+                    new Alert(Alert.AlertType.WARNING,"Qty you have entered has problems.Try again.");
+                    return;
+                }
 
-    public void txtCalculateAmount() {
-        int i = Integer.parseInt(txtQty.getText());
-        double v = Double.parseDouble(txtUnitPrice.getText());
-        double amount = i * v ;
-        txtAmount.setText(amount + "");
+            }
+
+            //make this a Date object to put to jasper reports.
+            LocalDateTime now = LocalDateTime.now();
+            Order order = new Order(
+                    lblOrderId.getText(),
+                    lblCustomerId.getText(),
+                    lblCustomerName.getText(),
+                    lblContact.getText(),
+                    now,
+                    orderDetailList,
+                    Double.parseDouble(lblTotal.getText()),
+                    Boolean.TRUE
+            );
+            boolean b = orderBo.persist(order);
+            if(b){
+                new Alert(Alert.AlertType.CONFIRMATION,"Order Placed.");
+                //reduce the inventory amount after this .
+                generateID();
+                clearAll();
+            }else{
+                new Alert(Alert.AlertType.ERROR,"Order not placed.");
+                clearAll();
+            }
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.WARNING,"Error in data binding check the details or contact.");
+            clearAll();
+        }
+
+
     }
 
     public void btnAddToCartOnAction() {
-        if(Integer.parseInt(txtQty.getText()) < Integer.parseInt(txtQtyOnHand.getText())){
+        if (Integer.parseInt(txtQty.getText()) < Integer.parseInt(txtQtyOnHand.getText())) {
             CartTbl cartTbl = new CartTbl(
                     cmbProductId.getValue(),
                     txtProductName.getText(),
@@ -153,16 +197,25 @@ public class OrderPageFormController implements Initializable {
             cartList.add(cartTbl);
             tblOrder.setItems(cartList);
             calcNetTotal();
-        }else{
-            new Alert(Alert.AlertType.ERROR,"You have selected more qty than the stock value.");
+        } else {
+            new Alert(Alert.AlertType.ERROR, "You have selected more qty than the stock value.");
         }
 
     }
 
-    public void calcNetTotal(){
-        double ttl=0;
-        for (CartTbl cartObj : cartList){
-            ttl+=cartObj.getAmount();
+    public void txtCalculateAmount(javafx.scene.input.KeyEvent keyEvent) {
+
+        int i = Integer.parseInt(txtQty.getText());
+        double v = Double.parseDouble(txtUnitPrice.getText());
+        double amount = i * v;
+        txtAmount.setText(amount + "");
+
+    }
+
+    private void calcNetTotal() {
+        double ttl = 0;
+        for (CartTbl cartObj : cartList) {
+            ttl += cartObj.getAmount();
         }
         lblTotal.setText(String.valueOf(ttl));
     }
@@ -176,7 +229,7 @@ public class OrderPageFormController implements Initializable {
     }
 
     private void generateID() {
-        int count = orderBo.count();
+        long count = orderBo.count();
         if (count == 0) {
             lblOrderId.setText("O0001");
             return; // Return after setting the initial ID
@@ -199,7 +252,7 @@ public class OrderPageFormController implements Initializable {
         }
     }
 
-    public void clearAll(){
+    public void clearAll() {
         txtProductName.setText("");
         txtAmount.setText("");
         txtContact.setText("");
@@ -213,16 +266,15 @@ public class OrderPageFormController implements Initializable {
     }
 
 
-
-    private void loadProductIdValues(){
+    private void loadProductIdValues() {
         cmbProductId.setItems(productBo.getAllProductIds());
     }
 
-    private void setProductDataForLbl(String productId){
+    private void setProductDataForLbl(String productId) {
         Inventory inventory = inventoryBo.search(productId);
         txtProductName.setText(inventory.getProductName());
-        txtUnitPrice.setText(inventory.getUnitPrice()+"");
-        txtQtyOnHand.setText(inventory.getQtyOnHand()+"");
+        txtUnitPrice.setText(inventory.getUnitPrice() + "");
+        txtQtyOnHand.setText(inventory.getQtyOnHand() + "");
 
     }
 
@@ -237,8 +289,8 @@ public class OrderPageFormController implements Initializable {
         colAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
         loadProductIdValues();
         cmbProductId.getSelectionModel().selectedItemProperty()
-                .addListener((observable,oldValue,newValue)->
-                setProductDataForLbl(newValue));
+                .addListener((observable, oldValue, newValue) ->
+                        setProductDataForLbl(newValue));
     }
 
 

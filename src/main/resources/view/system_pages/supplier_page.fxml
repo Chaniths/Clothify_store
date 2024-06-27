@@ -44,32 +44,32 @@
    <Rectangle arcHeight="60.0" arcWidth="60.0" fill="#f2f9ff" height="747.0" layoutX="333.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="820.0" AnchorPane.bottomAnchor="152.0" AnchorPane.leftAnchor="337.0" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="11.0" />
    <Rectangle arcHeight="60.0" arcWidth="60.0" fill="WHITE" height="613.0" layoutX="395.0" layoutY="125.0" onDragDetected="#btnSearchOnAction" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="713.0" />
    <Rectangle arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="85.0" layoutX="391.0" layoutY="21.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="713.0" />
-   <JFXTextField fx:id="txtSupplierName" layoutX="468.0" layoutY="221.0" prefHeight="34.0" prefWidth="180.0" promptText="Supplier ID" text="Supplier Name">
+   <JFXTextField fx:id="txtSupplierName" layoutX="468.0" layoutY="221.0" prefHeight="34.0" prefWidth="180.0" promptText="Supplier Name">
       <font>
          <Font size="14.0" />
       </font>
    </JFXTextField>
-   <JFXTextField fx:id="txtProductId" layoutX="886.0" layoutY="221.0" prefHeight="34.0" prefWidth="180.0" promptText="Supplier ID" text="Product ID">
+   <JFXTextField fx:id="txtProductId" layoutX="886.0" layoutY="221.0" prefHeight="34.0" prefWidth="180.0" promptText="Product ID">
       <font>
          <Font size="14.0" />
       </font>
    </JFXTextField>
-   <JFXTextField fx:id="txtProductName" layoutX="886.0" layoutY="159.0" prefHeight="34.0" prefWidth="180.0" promptText="Supplier ID" text="Product Name">
+   <JFXTextField fx:id="txtProductName" layoutX="886.0" layoutY="159.0" prefHeight="34.0" prefWidth="180.0" promptText="Product Name">
       <font>
          <Font size="14.0" />
       </font>
    </JFXTextField>
-   <JFXTextField fx:id="txtContact" layoutX="680.0" layoutY="285.0" prefHeight="34.0" prefWidth="180.0" promptText="Supplier ID" text="Contact">
+   <JFXTextField fx:id="txtContact" layoutX="680.0" layoutY="285.0" prefHeight="34.0" prefWidth="180.0" promptText="Contact">
       <font>
          <Font size="14.0" />
       </font>
    </JFXTextField>
-   <JFXTextField fx:id="txtEmail" layoutX="468.0" layoutY="285.0" prefHeight="34.0" prefWidth="180.0" promptText="Supplier ID" text="Email">
+   <JFXTextField fx:id="txtEmail" layoutX="468.0" layoutY="285.0" prefHeight="34.0" prefWidth="180.0" promptText="Email">
       <font>
          <Font size="14.0" />
       </font>
    </JFXTextField>
-   <JFXTextField fx:id="txtCompany" layoutX="886.0" layoutY="285.0" prefHeight="34.0" prefWidth="180.0" promptText="Supplier ID" text="Company">
+   <JFXTextField fx:id="txtCompany" layoutX="886.0" layoutY="285.0" prefHeight="34.0" prefWidth="180.0" promptText="Company">
       <font>
          <Font size="14.0" />
       </font>

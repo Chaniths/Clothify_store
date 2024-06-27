@@ -7,7 +7,9 @@ public enum BoType{
     INVENTORY,
     EMPLOYEE,
     PRODUCT,
-    SUPPLIER
+    SUPPLIER,
+
+    OrderDetail
 
 }
 

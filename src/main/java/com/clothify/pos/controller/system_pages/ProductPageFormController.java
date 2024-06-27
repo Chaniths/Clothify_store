@@ -119,6 +119,7 @@ public class ProductPageFormController implements Initializable {
             if(b){
                 new Alert(Alert.AlertType.CONFIRMATION,"Product Successfully added.");
                 cleanFields();
+                generateID();
             }else {
                 new Alert(Alert.AlertType.ERROR,"Product not  added.Check if all the text fields are filled.");
                 cleanFields();
@@ -198,7 +199,7 @@ public class ProductPageFormController implements Initializable {
     }
 
     private void generateID() {
-        int count = productBo.count();
+        long count = productBo.count();
         if (count == 0) {
             lblProductId.setText("P0001");
             return; // Return after setting the initial ID

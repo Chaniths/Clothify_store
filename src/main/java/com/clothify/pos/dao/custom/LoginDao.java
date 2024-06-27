@@ -16,6 +16,10 @@ public interface LoginDao extends SuperDao {
 
     boolean delete(String id);
 
+    String getLatestId();
+
+    long count();
+
 
 
 }
