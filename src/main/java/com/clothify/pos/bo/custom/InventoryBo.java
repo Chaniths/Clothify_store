@@ -12,6 +12,8 @@ public interface InventoryBo extends SuperBo {
 
     boolean updateStock(String productId,Integer qty);
 
+    int getInventoryOnHand(String productId);
+
     boolean delete(String id);
 
     Inventory search(String id);

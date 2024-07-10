@@ -12,6 +12,8 @@ public interface InventoryDao extends SuperDao {
 
     boolean updateStock(String productId,Integer qty);
 
+    int getInventoryOnHand(String productId);
+
     boolean delete(String id);
 
     InventoryEntity search(String id);

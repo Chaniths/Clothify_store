@@ -43,7 +43,7 @@
       </font></JFXButton>
    <Rectangle arcHeight="60.0" arcWidth="60.0" fill="#f2f9ff" height="748.0" layoutX="343.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="820.0" AnchorPane.bottomAnchor="142.0" AnchorPane.leftAnchor="337.0" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="14.0" />
    <Rectangle arcHeight="60.0" arcWidth="60.0" fill="WHITE" height="676.0" layoutX="392.0" layoutY="27.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="710.0" />
-   <TableView fx:id="tblInventory" layoutX="408.0" layoutY="347.0" prefHeight="245.0" prefWidth="679.0">
+   <TableView fx:id="tblInventory" layoutX="408.0" layoutY="372.0" prefHeight="245.0" prefWidth="679.0">
      <columns>
        <TableColumn fx:id="colProductId" prefWidth="75.0" text="Product ID" />
        <TableColumn fx:id="colName" prefWidth="75.0" text="Name" />
@@ -80,7 +80,7 @@
          <Font size="14.0" />
       </font>
    </JFXTextField>
-   <JFXTextField fx:id="txtReceivedQty" layoutX="787.0" layoutY="160.0" prefHeight="26.0" prefWidth="229.0" promptText="Received Qty">
+   <JFXTextField fx:id="txtReceivedQty" layoutX="787.0" layoutY="160.0" onKeyPressed="#calTotalInventory" prefHeight="26.0" prefWidth="229.0" promptText="Received Qty">
       <font>
          <Font size="14.0" />
       </font>
@@ -122,4 +122,9 @@
    </JFXButton>
    <JFXComboBox fx:id="cmbCategory" layoutX="432.0" layoutY="213.0" prefHeight="26.0" prefWidth="229.0" promptText="Select Category" style="-fx-font-size: 14px;" />
    <JFXComboBox fx:id="cmbSupplier" layoutX="432.0" layoutY="274.0" prefHeight="26.0" prefWidth="229.0" promptText="Select Supplier ID" style="-fx-font-size: 14px;" />
+   <JFXButton buttonType="RAISED" layoutX="886.0" layoutY="322.0" onAction="#btnLoadInventoryTblOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #F26E11;" text="Load Inventory Table" textFill="WHITE">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </JFXButton>
 </AnchorPane>

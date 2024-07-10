@@ -1,7 +1,5 @@
 
 Ê
-java:S1186‰"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(•òšŒûÿÿÿÿ8ú‹¤Á…2J$6b461b07-d8d8-4e67-ab57-60a0ec0c25bd
-n	java:S106­"+Replace this use of System.out by a logger.(•Ï¡½8ÒşÆÁ…2J$4cc57403-457f-4638-afa1-6ea8c19df65f
-m	java:S106¯"+Replace this use of System.out by a logger.(Çğõ"8ùÕÇÁ…2J$9a5be491-2f5f-4cc2-b497-f70c147ed8cf
+java:S1186€"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(•òšŒûÿÿÿÿ8å´Â…2J$49d42284-b1b5-4f0e-a9b3-80f97abf1ec7
 u
-java:S1068E"-Remove this unused "productBo" private field.(×±ËËüÿÿÿÿ8‹Œ¤Á…2J$58b3301f-2704-40db-ac2b-090ee3f53115
+java:S1068A"-Remove this unused "productBo" private field.(×±ËËüÿÿÿÿ8°å´Â…2J$81d67af5-569c-4b2b-a067-712d2a451ec0

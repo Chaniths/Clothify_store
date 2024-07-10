@@ -1,11 +1,10 @@
 package com.clothify.pos.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "Supplier")
@@ -16,7 +15,6 @@ public class SupplierEntity {
     private Integer id;
     private String supplierId;
     private String supplierName;
-    private Integer productId;
     private String productName;
     private String contact;
     private String email;

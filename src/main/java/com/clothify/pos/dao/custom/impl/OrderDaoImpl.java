@@ -26,10 +26,11 @@ public class OrderDaoImpl implements OrderDao {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         Query query = session.createQuery(
-                "UPDATE Orders SET customerId=:customerId,customerName=:customerName,contact=:contact,orderDetails=:orderDetails,total=:total,status=:status WHERE orderId=:orderId");
+                "UPDATE Orders SET customerId=:customerId,customerName=:customerName,contact=:contact,date=:date,orderDetails=:orderDetails,total=:total,status=:status WHERE orderId=:orderId");
         query.setParameter("customerId",entity.getCustomerId());
         query.setParameter("customerName",entity.getCustomerName());
         query.setParameter("contact",entity.getContact());
+        query.setParameter("date",entity.getDate());
         query.setParameter("orderDetails",entity.getOrderDetails());
         query.setParameter("total",entity.getTotal());
         query.setParameter("status",entity.getStatus());

@@ -69,6 +69,17 @@ public class InventoryDaoImpl implements InventoryDao {
    }
 
     @Override
+    public int getInventoryOnHand(String productId) {
+        Session session = HibernateUtil.getSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("SELECT qtyOnHand FROM Inventory WHERE productId=:productId");
+        query.setParameter("productId",productId);
+        int i = (int) query.uniqueResult();
+        session.close();
+        return i;
+    }
+
+    @Override
     public boolean delete(String id) {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
@@ -85,8 +96,8 @@ public class InventoryDaoImpl implements InventoryDao {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
 
-        Query query = session.createQuery("FROM Inventory WHERE ProductId=:id");
-        query.setParameter("id",productId);
+        Query query = session.createQuery("FROM Inventory WHERE productId=:productId");
+        query.setParameter("productId",productId);
         InventoryEntity inventoryEntity = (InventoryEntity) query.uniqueResult();
         session.close();
         return inventoryEntity;

@@ -13,13 +13,11 @@ import java.util.List;
 public class SupplierDaoImpl implements SupplierDao {
   @Override
     public boolean persist(SupplierEntity entity) {
-        System.out.println("Dao");
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         session.persist(entity);
         session.getTransaction().commit();
         session.close();
-        System.out.println("Dao Done");
         return true;
     }
 
@@ -28,9 +26,8 @@ public class SupplierDaoImpl implements SupplierDao {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         Query query = session.createQuery(
-                "UPDATE Supplier SET supplierName=:supplierName,productId=:productId,productName=:productName,contact=:contact,email=:email,company=:company WHERE supplierId=:supplierId");
+                "UPDATE Supplier SET supplierName=:supplierName,productName=:productName,contact=:contact,email=:email,company=:company WHERE supplierId=:supplierId");
         query.setParameter("supplierName",entity.getSupplierName());
-        query.setParameter("productId",entity.getProductId());
         query.setParameter("productName",entity.getProductName());
         query.setParameter("contact",entity.getContact());
         query.setParameter("email",entity.getEmail());

@@ -7,6 +7,7 @@ import com.clothify.pos.util.BoType;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import jakarta.mail.MessagingException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,13 +22,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -123,63 +129,111 @@ public class OrderPageFormController implements Initializable {
     }
 
 
-    public void btnReceiptOnAction(ActionEvent actionEvent) {
+
+    public void btnReceiptOnAction() throws IOException {
+        String latestId = orderBo.getLatestId();
+        File file = new File("/Users/chanithwijekoon/JavaFx Projects/Clothify_Store/src/main/resources/reportPdf/ordersPdf/"+latestId);
+        if (file.exists()){
+            if (Desktop.isDesktopSupported()){
+                Desktop.getDesktop().open(file);
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Report Not Found..!!!").show();
+            }
+       }
     }
 
     public void btnCancelOnAction() {
         clearAll();
     }
-
-
     public void btnCustomerOrderOnAction() {
         //when the order place change the inventory qty on hand value like qtyOnHand - qty
 
         try {
             List<OrderDetail> orderDetailList = new ArrayList<>();
-            //ObservableList<OrderDetail> orderDetailList = FXCollections.observableArrayList();
-            for(CartTbl cartTbl : cartList){
-                OrderDetail orderDetail = new OrderDetail(
-                        cartTbl.getProductId(),
-                        lblCustomerId.getText(),
-                        cartTbl.getQty(),
-                        cartTbl.getAmount()
-                );
-                boolean b = inventoryBo.updateStock(cartTbl.getProductId(), cartTbl.getQty());
-                if(b){
-                    orderDetailList.add(orderDetail);
-                    orderDetailsBo.persist(orderDetail);
-                }else{
-                    new Alert(Alert.AlertType.WARNING,"Qty you have entered has problems.Try again.");
-                    return;
-                }
-
-            }
-
-            //make this a Date object to put to jasper reports.
-            LocalDateTime now = LocalDateTime.now();
+            List<CartTbl> reportCartList = new ArrayList<>();
+            Date currentDate = new Date();
             Order order = new Order(
                     lblOrderId.getText(),
                     lblCustomerId.getText(),
                     lblCustomerName.getText(),
                     lblContact.getText(),
-                    now,
+                    currentDate,
                     orderDetailList,
                     Double.parseDouble(lblTotal.getText()),
                     Boolean.TRUE
             );
+            boolean orderDetailsAdded = false;
+            boolean inventoryAdded = false;
+            for (CartTbl cartTbl : cartList) {
+                OrderDetail orderDetail = new OrderDetail(
+                        null,
+                        cartTbl.getProductId(),
+                        lblCustomerId.getText(),
+                        cartTbl.getQty(),
+                        cartTbl.getAmount()
+                );
+                orderDetailList.add(orderDetail);
+                reportCartList.add(cartTbl);
+                orderDetailsAdded = orderDetailsBo.persist(orderDetail);
+                if (orderDetailsAdded) {
+                    inventoryAdded=inventoryBo.updateStock(cartTbl.getProductId(), cartTbl.getQty());
+                }
+            }
+            System.out.println(reportCartList);
+            JasperDesign design = JRXmlLoader.load(new File("/Users/chanithwijekoon/JavaFx Projects/Clothify_Store/src/main/resources/reports/Invoice.jrxml"));
+
+            HashMap<String, Object> parameters = new HashMap<>();
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+
+            Date date = new Date();
+
+            String savePath = "/Users/chanithwijekoon/JavaFx Projects/Clothify_Store/src/main/resources/reportPdf/ordersPdf/" + lblOrderId.getText() + ".pdf";
+
+            // Ensure the save directory exists
+            File saveDir = new File(savePath).getParentFile();
+            if (!saveDir.exists()) {
+                if (!saveDir.mkdirs()) {
+                    throw new RuntimeException("Failed to create directories for path: " + savePath);
+                }
+            }
+
+            Customer customer = customerBo.search(lblContact.getText());
+            parameters.put("customerName",customer.getCustomerName());
+            parameters.put("email",customer.getEmail());
+            parameters.put("address",customer.getAddress());
+            parameters.put("contact",customer.getContact());
+            parameters.put("OrderId",lblOrderId.getText());
+            parameters.put("total",Double.parseDouble(lblTotal.getText()));
+            parameters.put("date",date);
+            parameters.put("invoice","##"+lblOrderId.getText());
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(reportCartList);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+            JasperViewer.viewReport(jasperPrint,false);
+            JasperExportManager.exportReportToPdfFile(jasperPrint,savePath);
+
             boolean b = orderBo.persist(order);
-            if(b){
-                new Alert(Alert.AlertType.CONFIRMATION,"Order Placed.");
-                //reduce the inventory amount after this .
+            if (b){
+                File file = new File(savePath);
+                orderBo.sendEmail(customer.getEmail(),
+                        "Your order has been placed success. Here's details of the order",
+                        file);
+                new Alert(Alert.AlertType.CONFIRMATION,"Email to the customer sent Success.").show();
+            }
+            if(b && orderDetailsAdded && inventoryAdded){
+                new Alert(Alert.AlertType.CONFIRMATION,"Order Added successfully").show();
                 generateID();
                 clearAll();
             }else{
-                new Alert(Alert.AlertType.ERROR,"Order not placed.");
-                clearAll();
+                new Alert(Alert.AlertType.ERROR,"Order not Added").show();
             }
+
         } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.WARNING,"Error in data binding check the details or contact.");
+            new Alert(Alert.AlertType.WARNING, "Error in data binding check the details or contact.").show();
             clearAll();
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
         }
 
 
@@ -203,6 +257,7 @@ public class OrderPageFormController implements Initializable {
 
     }
 
+    @FXML
     public void txtCalculateAmount(javafx.scene.input.KeyEvent keyEvent) {
 
         int i = Integer.parseInt(txtQty.getText());
@@ -254,6 +309,9 @@ public class OrderPageFormController implements Initializable {
 
     public void clearAll() {
         txtProductName.setText("");
+        txtQtyOnHand.setText("");
+        txtUnitPrice.setText("");
+        //cmbProductId.setValue("");
         txtAmount.setText("");
         txtContact.setText("");
         txtQty.setText("");

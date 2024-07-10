@@ -2,6 +2,7 @@ package com.clothify.pos.controller.system_pages;
 
 import com.clothify.pos.bo.BoFactory;
 import com.clothify.pos.bo.custom.InventoryBo;
+import com.clothify.pos.bo.custom.ProductBo;
 import com.clothify.pos.bo.custom.SupplierBo;
 import com.clothify.pos.dto.Inventory;
 import com.clothify.pos.util.BoType;
@@ -19,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -124,14 +126,16 @@ public class InventoryPageFormController implements Initializable {
             txtUnitPrice.setText(inventory.getUnitPrice()+"");
             txtInventoryTotal.setText(inventory.getTotalInventoryPrice()+"");
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR,"Invalid product ID.Check the product ID.");
+            new Alert(Alert.AlertType.ERROR,"Invalid product ID.Check the product ID.").show();
         }
     }
 
     public void btnAddInventoryOnAction() {
         try {
             int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText()) + Integer.parseInt(txtReceivedQty.getText());
+            double totalInventoryPrice = qtyOnHand * Double.parseDouble(txtUnitPrice.getText());
             Inventory inventory = new Inventory(
+                    null,
                     txtProductId.getText(),
                     txtProductName.getText(),
                     cmbCategory.getValue(),
@@ -139,18 +143,18 @@ public class InventoryPageFormController implements Initializable {
                     qtyOnHand,
                     Integer.parseInt(txtReceivedQty.getText()),
                     Double.parseDouble(txtUnitPrice.getText()),
-                    Double.parseDouble(txtInventoryTotal.getText())
+                    totalInventoryPrice
             );
-            boolean b = inventoryBo.persist(inventory);
+            boolean b = inventoryBo.update(inventory);
             if(b){
-                new Alert(Alert.AlertType.CONFIRMATION,"Inventory added successfully.");
+                new Alert(Alert.AlertType.CONFIRMATION,"Inventory added successfully.").show();
                 cleanField();
             }else {
-                new Alert(Alert.AlertType.ERROR,"Inventory  not added.");
+                new Alert(Alert.AlertType.ERROR,"Inventory  not added.").show();
                 cleanField();
             }
         } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.WARNING,"Data can't bind Check if all the text fields are filled.");
+            new Alert(Alert.AlertType.WARNING,"Data can't bind Check if all the text fields are filled.").show();
         }
     }
 
@@ -158,6 +162,7 @@ public class InventoryPageFormController implements Initializable {
         try {
             int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText()) + Integer.parseInt(txtReceivedQty.getText());
             Inventory inventory = new Inventory(
+                    null,
                     txtProductId.getText(),
                     txtProductName.getText(),
                     cmbCategory.getValue(),
@@ -169,30 +174,36 @@ public class InventoryPageFormController implements Initializable {
             );
             boolean b = inventoryBo.update(inventory);
             if(b){
-                new Alert(Alert.AlertType.CONFIRMATION,"Inventory updated successfully.");
+                new Alert(Alert.AlertType.CONFIRMATION,"Inventory updated successfully.").show();
                 cleanField();
             }else {
-                new Alert(Alert.AlertType.ERROR,"Inventory not updated.");
+                new Alert(Alert.AlertType.ERROR,"Inventory not updated.").show();
                 cleanField();
             }
         } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.WARNING,"Data can't bind Check if all the text fields are filled.");
+            new Alert(Alert.AlertType.WARNING,"Data can't bind Check if all the text fields are filled.").show();
         }
     }
 
     public void btnRemoveOnAction() {
+        new Alert(Alert.AlertType.WARNING,"Make sure tou have deleted the specific Product too from the system").show();
         if(!Objects.equals(searchProdId.getText(), "")){
             boolean delete = inventoryBo.delete(txtProductId.getText());
             if(delete){
-                new Alert(Alert.AlertType.CONFIRMATION,"Supplier deleted success.");
+                new Alert(Alert.AlertType.CONFIRMATION,"Supplier deleted success.").show();
                 cleanField();
             }else{
-                new Alert(Alert.AlertType.WARNING,"Enter a correct Supplier ID.");
+                new Alert(Alert.AlertType.WARNING,"Enter a correct Supplier ID.").show();
                 cleanField();
             }
         }else{
-            new Alert(Alert.AlertType.ERROR,"Enter the Supplier ID to search the supplier.");
+            new Alert(Alert.AlertType.ERROR,"Enter the Supplier ID to search the supplier.").show();
         }
+    }
+
+    @FXML
+    public void btnLoadInventoryTblOnAction(ActionEvent actionEvent) {
+        loadTable();
     }
 
     public void btnGenerateReportOnAction(ActionEvent actionEvent) {
@@ -219,6 +230,15 @@ public class InventoryPageFormController implements Initializable {
         cmbCategory.setItems(categories);
     }
 
+    @FXML
+    public void calTotalInventory(KeyEvent keyEvent) {
+        //add inventory on hand to this . some problem has happened inventory data not getting.
+        //int inventoryOnHand = inventoryBo.getInventoryOnHand(searchProdId.getText());
+        int totalInventory =  Integer.parseInt(txtReceivedQty.getText());
+        double inventoryPrice = totalInventory * Double.parseDouble(txtUnitPrice.getText());
+        txtInventoryTotal.setText(inventoryPrice+"");
+    }
+
     private void cleanField(){
         searchProdId.setText("");
         txtProductId.setText("");
@@ -243,7 +263,6 @@ public class InventoryPageFormController implements Initializable {
         colTotalPrice.setCellValueFactory(new PropertyValueFactory<>("totalInventoryPrice"));
         loadAllCategories();
         loadAllSupplierIds();
-        loadTable();
 
     }
 

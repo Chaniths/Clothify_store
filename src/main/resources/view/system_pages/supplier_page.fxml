@@ -49,17 +49,12 @@
          <Font size="14.0" />
       </font>
    </JFXTextField>
-   <JFXTextField fx:id="txtProductId" layoutX="886.0" layoutY="221.0" prefHeight="34.0" prefWidth="180.0" promptText="Product ID">
-      <font>
-         <Font size="14.0" />
-      </font>
-   </JFXTextField>
    <JFXTextField fx:id="txtProductName" layoutX="886.0" layoutY="159.0" prefHeight="34.0" prefWidth="180.0" promptText="Product Name">
       <font>
          <Font size="14.0" />
       </font>
    </JFXTextField>
-   <JFXTextField fx:id="txtContact" layoutX="680.0" layoutY="285.0" prefHeight="34.0" prefWidth="180.0" promptText="Contact">
+   <JFXTextField fx:id="txtContact" layoutX="888.0" layoutY="221.0" prefHeight="34.0" prefWidth="180.0" promptText="Contact">
       <font>
          <Font size="14.0" />
       </font>
@@ -77,12 +72,11 @@
    <TableView fx:id="tblSupplier" layoutX="424.0" layoutY="352.0" prefHeight="306.0" prefWidth="655.0">
      <columns>
        <TableColumn fx:id="colSupplierId" prefWidth="75.0" text="Supplier ID" />
-       <TableColumn fx:id="colName" prefWidth="81.0" text="Name" />
-         <TableColumn fx:id="colProductId" prefWidth="81.0" text="Product ID" />
-         <TableColumn fx:id="colProductName" prefWidth="99.0" text="Product Name" />
-         <TableColumn fx:id="colContact" prefWidth="88.0" text="Contact" />
-         <TableColumn fx:id="colEmail" prefWidth="112.0" text="Email" />
-         <TableColumn fx:id="colCompany" prefWidth="118.0" text="Company" />
+       <TableColumn fx:id="colName" prefWidth="106.0" text="Name" />
+         <TableColumn fx:id="colProductName" prefWidth="102.0" text="Product Name" />
+         <TableColumn fx:id="colContact" prefWidth="90.0" text="Contact" />
+         <TableColumn fx:id="colEmail" prefWidth="142.0" text="Email" />
+         <TableColumn fx:id="colCompany" prefWidth="139.0" text="Company" />
      </columns>
    </TableView>
    <JFXButton buttonType="RAISED" layoutX="430.0" layoutY="689.0" onAction="#btnAddCustomerOnAction" prefHeight="26.0" prefWidth="121.0" style="-fx-background-color: #26B170;" text="Add Supplier" textFill="WHITE">
@@ -122,10 +116,10 @@
    </TextField>
    <JFXButton buttonType="RAISED" layoutX="697.0" layoutY="165.0" onAction="#btnSearchOnAction" prefHeight="34.0" prefWidth="139.0" style="-fx-background-color: #F26E11;" text="Search" textFill="WHITE">
       <font>
-         <Font size="14.0" />
+         <Font size="16.0" />
       </font>
    </JFXButton>
-   <JFXButton buttonType="RAISED" layoutX="767.0" layoutY="689.0" onAction="#btnGenerateReportOnAction" prefHeight="26.0" prefWidth="121.0" style="-fx-background-color: #FFBA00;" text="Update" textFill="WHITE">
+   <JFXButton buttonType="RAISED" layoutX="767.0" layoutY="689.0" onAction="#btnGenerateReportOnAction" prefHeight="26.0" prefWidth="121.0" style="-fx-background-color: #FFBA00;" text="Invoice" textFill="WHITE">
       <font>
          <Font size="16.0" />
       </font>

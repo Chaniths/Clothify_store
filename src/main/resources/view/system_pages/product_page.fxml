@@ -130,4 +130,14 @@
          <Font size="16.0" />
       </font>
    </JFXButton>
+   <JFXButton buttonType="RAISED" layoutX="911.0" layoutY="327.0" onAction="#btnLoadTable" prefHeight="31.0" prefWidth="152.0" style="-fx-background-color: #F26E11;" text="Load All Products " textFill="WHITE">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </JFXButton>
+   <Text fill="RED" layoutX="430.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Only Initialize Qty do not use for Update product Qty" wrappingWidth="279.99999999999994">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
 </AnchorPane>

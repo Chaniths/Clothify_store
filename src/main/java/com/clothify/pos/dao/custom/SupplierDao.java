@@ -12,7 +12,7 @@ public interface SupplierDao extends SuperDao {
 
     boolean delete(String id);
 
-    SupplierEntity search(String is);
+    SupplierEntity search(String id);
 
     ObservableList<SupplierEntity> searchAll();
 

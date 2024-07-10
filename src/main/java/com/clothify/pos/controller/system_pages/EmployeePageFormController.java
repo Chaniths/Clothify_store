@@ -119,7 +119,7 @@ public class EmployeePageFormController implements Initializable {
             LocalDate localDate = employee.getRecruited().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             txtDate.setValue(localDate);
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR,"There is no EmployeeId on the system similar to that.Add the Employee and try again.");
+            new Alert(Alert.AlertType.ERROR,"There is no EmployeeId on the system similar to that.Add the Employee and try again.").show();
         }
     }
 
@@ -129,6 +129,7 @@ public class EmployeePageFormController implements Initializable {
             Date date;
             date= format.parse(txtDate.getValue().toString());
             Employee employee = new Employee(
+                    null,
                     lblEmployeeId.getText(),
                     txtEmployeeName.getText(),
                     Integer.parseInt(txtEmployeeAge.getText()),
@@ -139,16 +140,16 @@ public class EmployeePageFormController implements Initializable {
             );
             boolean b = employeeBo.persist(employee);
             if(b){
-                new Alert(Alert.AlertType.CONFIRMATION,"Employee added success");
+                new Alert(Alert.AlertType.CONFIRMATION,"Employee added success").show();
                 cleanFields();
                 generateID();
             }else{
-                new Alert(Alert.AlertType.ERROR,"Employee not added.");
+                new Alert(Alert.AlertType.ERROR,"Employee not added.").show();
                 cleanFields();
             }
 
         } catch (ParseException e) {
-            new Alert(Alert.AlertType.WARNING,"Error when data binding to database.");
+            new Alert(Alert.AlertType.WARNING,"Error when data binding to database.").show();
         }
     }
 
@@ -158,6 +159,7 @@ public class EmployeePageFormController implements Initializable {
             Date date;
             date= format.parse(txtDate.getValue().toString());
             Employee employee = new Employee(
+                    null,
                     lblEmployeeId.getText(),
                     txtEmployeeName.getText(),
                     Integer.parseInt(txtEmployeeAge.getText()),
@@ -168,25 +170,25 @@ public class EmployeePageFormController implements Initializable {
             );
             boolean b = employeeBo.update(employee);
             if(b){
-                new Alert(Alert.AlertType.CONFIRMATION,"Employee updated success");
+                new Alert(Alert.AlertType.CONFIRMATION,"Employee updated success").show();
                 cleanFields();
             }else{
-                new Alert(Alert.AlertType.ERROR,"Employee not updated.");
+                new Alert(Alert.AlertType.ERROR,"Employee not updated.").show();
                 cleanFields();
             }
 
         } catch (ParseException e) {
-            new Alert(Alert.AlertType.WARNING,"Error when data binding to database.");
+            new Alert(Alert.AlertType.WARNING,"Error when data binding to database.").show();
         }
     }
 
     public void btnRemoveOnAction() {
         boolean delete = employeeBo.delete(txtEmployeeId.getText());
         if(delete){
-            new Alert(Alert.AlertType.CONFIRMATION,"Employee deleted success");
+            new Alert(Alert.AlertType.CONFIRMATION,"Employee deleted success").show();
             cleanFields();
         }else{
-            new Alert(Alert.AlertType.ERROR,"Id does not match.Try again");
+            new Alert(Alert.AlertType.ERROR,"Id does not match.Try again").show();
             cleanFields();
         }
 

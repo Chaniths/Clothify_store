@@ -18,9 +18,7 @@ public class SupplierBoImpl implements SupplierBo {
     ObjectMapper mapper = new ObjectMapper();
     @Override
     public boolean persist(Supplier supplier) {
-        System.out.println("Bo");
         SupplierEntity supplierEntity = mapper.convertValue(supplier, SupplierEntity.class);
-        System.out.println("Entity:"+supplierEntity);
         return supplierDao.persist(supplierEntity);
     }
 

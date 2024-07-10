@@ -31,6 +31,11 @@ public class InventoryBoImpl implements InventoryBo {
    }
 
     @Override
+    public int getInventoryOnHand(String productId) {
+        return inventoryDao.getInventoryOnHand(productId);
+    }
+
+    @Override
     public boolean delete(String id) {
         return inventoryDao.delete(id);
     }

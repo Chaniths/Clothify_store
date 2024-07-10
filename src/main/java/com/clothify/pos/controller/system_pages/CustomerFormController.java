@@ -142,6 +142,7 @@ public class CustomerFormController implements Initializable {
             Date date;
             date = format.parse(dateDob.getValue().toString());
             Customer customer = new Customer(
+                    null,
                     lblCustomerId.getText(),
                     txtName.getText(),
                     txtContact.getText(),
@@ -181,6 +182,7 @@ public class CustomerFormController implements Initializable {
             Date date;
             date = format.parse(dateDob.getValue().toString());
             Customer customer = new Customer(
+                    null,
                     lblSearchCustId.getText(),
                     txtName.getText(),
                     txtContact.getText(),

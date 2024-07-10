@@ -8,6 +8,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 
@@ -15,7 +18,13 @@ import java.io.IOException;
 
 public class SalesPageFormController {
     @FXML
-    public AnchorPane salesPane;
+    private AnchorPane salesPane;
+    @FXML
+    private StackedAreaChart<Number,Number> stackedAreChart;
+    @FXML
+    private PieChart pieChart;
+    @FXML
+    private LineChart lineChart;
     @FXML
     private JFXButton btnCustomer;
     @FXML

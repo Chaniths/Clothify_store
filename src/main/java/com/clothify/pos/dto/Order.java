@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -16,7 +17,7 @@ public class Order {
     private String customerId;
     private String customerName;
     private String contact;
-    private LocalDateTime date;
+    private Date date;
     private List<OrderDetail> orderDetails;
     private Double total;
     private Boolean status;

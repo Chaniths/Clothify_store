@@ -34,8 +34,6 @@ public class SupplierPageFormController implements Initializable {
     @FXML
     private JFXTextField txtSupplierName;
     @FXML
-    private JFXTextField txtProductId;
-    @FXML
     private JFXTextField txtProductName;
     @FXML
     private JFXTextField txtContact;
@@ -49,8 +47,6 @@ public class SupplierPageFormController implements Initializable {
     private TableColumn<Supplier,String> colSupplierId;
     @FXML
     private TableColumn<Supplier,String> colName;
-    @FXML
-    private TableColumn<Supplier,String> colProductId;
     @FXML
     private TableColumn<Supplier,String> colProductName;
     @FXML
@@ -118,9 +114,9 @@ public class SupplierPageFormController implements Initializable {
     public void btnAddCustomerOnAction(ActionEvent actionEvent) {
         try {
             Supplier supplier = new Supplier(
+                    null,
                     lblSupplierId.getText(),
                     txtSupplierName.getText(),
-                    txtProductId.getText(),
                     txtProductName.getText(),
                     txtContact.getText(),
                     txtEmail.getText(),
@@ -128,16 +124,16 @@ public class SupplierPageFormController implements Initializable {
             );
             boolean b = supplierBo.persist(supplier);
             if(b){
-                new Alert(Alert.AlertType.CONFIRMATION,"Supplier Added successfully.");
+                new Alert(Alert.AlertType.CONFIRMATION,"Supplier Added successfully.").show();
                 clearField();
                 generateID();
 
             }else{
-                new Alert(Alert.AlertType.ERROR,"Supplier not Added.");
+                new Alert(Alert.AlertType.ERROR,"Supplier not Added.").show();
                 clearField();
             }
         } catch (Exception e) {
-            new Alert(Alert.AlertType.WARNING,"Data can't bind Check if all the text fields are filled.");
+            new Alert(Alert.AlertType.WARNING,"Data can't bind Check if all the text fields are filled.").show();
         }
     }
 
@@ -146,14 +142,14 @@ public class SupplierPageFormController implements Initializable {
         if(!Objects.equals(txtSupplierId.getText(), "")){
             boolean delete = supplierBo.delete(txtSupplierId.getText());
             if(delete){
-                new Alert(Alert.AlertType.CONFIRMATION,"Supplier deleted success.");
+                new Alert(Alert.AlertType.CONFIRMATION,"Supplier deleted success.").show();
                 clearField();
             }else{
-                new Alert(Alert.AlertType.WARNING,"Enter a correct Supplier ID.");
+                new Alert(Alert.AlertType.WARNING,"Enter a correct Supplier ID.").show();
                 clearField();
             }
         }else{
-            new Alert(Alert.AlertType.ERROR,"Enter the Supplier ID to search the supplier.");
+            new Alert(Alert.AlertType.ERROR,"Enter the Supplier ID to search the supplier.").show();
         }
 
     }
@@ -162,27 +158,25 @@ public class SupplierPageFormController implements Initializable {
     public void btnUpdateSupplierOnAction(ActionEvent actionEvent) {
         try {
             Supplier supplier = new Supplier(
+                    null,
                     txtSupplierId.getText(),
                     txtSupplierName.getText(),
-                    txtProductId.getText(),
                     txtProductName.getText(),
                     txtContact.getText(),
                     txtEmail.getText(),
                     txtCompany.getText()
             );
-            System.out.println(supplier);
             boolean b = supplierBo.update(supplier);
-            System.out.println("Done");
             if(b){
-                new Alert(Alert.AlertType.CONFIRMATION,"Supplier Updated successfully.");
+                new Alert(Alert.AlertType.CONFIRMATION,"Supplier Updated successfully.").show();
                 clearField();
                 generateID();
             }else{
-                new Alert(Alert.AlertType.ERROR,"Supplier not Updated.");
+                new Alert(Alert.AlertType.ERROR,"Supplier not Updated.").show();
                 clearField();
             }
         } catch (Exception e) {
-            new Alert(Alert.AlertType.WARNING,"Data can't bind Check if all the text fields are filled.");
+            new Alert(Alert.AlertType.WARNING,"Data can't bind Check if all the text fields are filled.").show();
         }
     }
 
@@ -193,16 +187,15 @@ public class SupplierPageFormController implements Initializable {
             try {
                 Supplier supplier = supplierBo.search(txtSupplierId.getText());
                 txtSupplierName.setText(supplier.getSupplierName());
-                txtProductId.setText(supplier.getProductId());
                 txtProductName.setText(supplier.getProductName());
                 txtContact.setText(supplier.getContact());
                 txtEmail.setText(supplier.getEmail());
                 txtCompany.setText(supplier.getCompany());
             } catch (Exception e) {
-                new Alert(Alert.AlertType.ERROR,"There is no supplier related to the ID. Add the supplier to the system");
+                new Alert(Alert.AlertType.ERROR,"There is no supplier related to the ID. Add the supplier to the system").show();
             }
         }else{
-            new Alert(Alert.AlertType.ERROR,"Enter the Supplier ID to search the supplier.");
+            new Alert(Alert.AlertType.ERROR,"Enter the Supplier ID to search the supplier.").show();
         }
 
     }
@@ -237,7 +230,6 @@ public class SupplierPageFormController implements Initializable {
     }
 
     private void clearField(){
-        txtProductId.setText("");
         txtProductName.setText("");
         txtSupplierId.setText("");
         txtSupplierName.setText("");
@@ -252,7 +244,6 @@ public class SupplierPageFormController implements Initializable {
         generateID();
         colSupplierId.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
         colName.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
-        colProductId.setCellValueFactory(new PropertyValueFactory<>("productId"));
         colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
         colContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));

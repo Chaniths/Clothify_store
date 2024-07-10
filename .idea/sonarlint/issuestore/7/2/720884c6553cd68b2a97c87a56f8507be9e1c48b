@@ -1,6 +1,12 @@
 
-É
-java:S1186~"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ã‚þ”ùÿÿÿÿ8¯ë°ÿ„2J$25a30995-0410-4d72-bb5e-9c511d4a0873
-	java:S125‹"<This block of commented-out lines of code should be removed.(´ÎÓ8¹ë°ÿ„2J$befb0030-7ebf-417c-bb5e-44e8f841f167
-x
-java:S1172Î"/Remove this unused method parameter "keyEvent".(ÊâôÀúÿÿÿÿ8½ë°ÿ„2J$1cc52b9c-557d-413e-b3a0-94c249c41545
+Ž	java:S112Ä"FDefine and throw a dedicated exception instead of using a generic one.(æË¬Çÿÿÿÿÿ8Ž‚ãŽ‡2J$3f4b9281-8039-49bc-94ef-83924e3f6f8a
+Ž	java:S112ê"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8‚ãŽ‡2J$3ad3a2e1-8220-476f-90ad-29689be25d00
+Ž	java:S112ì"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8‚ãŽ‡2J$5e69980c-a7ec-45c2-b11c-1882876e1c53
+s
+java:S1066Ã"/Merge this if statement with the enclosing one.(ã³ÿ8‚ãŽ‡2J$69040b3d-fbd6-46a4-8318-3671924de0d3
+‰
+java:S2147ë"ECombine this catch with the one at line 233, which has the same body.(°±âÝ8ÎƒãŽ‡2J$1ee5ab29-f208-4e42-ae44-93c3abc091d8
+n	java:S106¶"+Replace this use of System.out by a logger.(¬ºðÓ8ÿß²‡2J$2bfd340c-49ed-413b-a93d-1f4c61def0cd
+„	java:S125º"<This block of commented-out lines of code should be removed.(˜º±’úÿÿÿÿ8Þ–ò“ˆ2J$9e0f9c14-7948-4e40-85d5-6be3c6bdf8cc
+}
+java:S1128"5Remove this unused import 'javafx.event.ActionEvent'.(î•¯¼ýÿÿÿÿ8°¯±‡2J$408d3d26-50cb-4100-a444-1095d77cf1eb

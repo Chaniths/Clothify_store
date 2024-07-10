@@ -43,9 +43,9 @@
       </font></JFXButton>
    <Rectangle arcHeight="60.0" arcWidth="60.0" fill="#f2f9ff" height="716.0" layoutX="307.0" layoutY="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="820.0" AnchorPane.bottomAnchor="177.0" AnchorPane.leftAnchor="337.0" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="17.0" />
    <Rectangle arcHeight="60.0" arcWidth="60.0" fill="WHITE" height="300.0" layoutX="380.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="341.0" />
-   <PieChart layoutX="396.0" layoutY="37.0" prefHeight="277.0" prefWidth="309.0" title="Sales By Category" />
+   <PieChart fx:id="pieChart" layoutX="396.0" layoutY="37.0" prefHeight="277.0" prefWidth="309.0" title="Sales By Category" />
    <Rectangle arcHeight="60.0" arcWidth="60.0" fill="WHITE" height="300.0" layoutX="747.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="380.0" />
-   <LineChart layoutX="756.0" layoutY="34.0" prefHeight="284.0" prefWidth="362.0" title="Income">
+   <LineChart fx:id="lineChart" layoutX="756.0" layoutY="34.0" prefHeight="284.0" prefWidth="362.0" title="Income">
      <xAxis>
        <CategoryAxis side="BOTTOM" />
      </xAxis>
@@ -54,7 +54,7 @@
      </yAxis>
    </LineChart>
    <Rectangle arcHeight="60.0" arcWidth="60.0" fill="WHITE" height="366.0" layoutX="389.0" layoutY="342.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="735.0" />
-   <StackedAreaChart layoutX="380.0" layoutY="358.0" prefHeight="334.0" prefWidth="735.0">
+   <StackedAreaChart fx:id="stackedAreChart" layoutX="380.0" layoutY="358.0" prefHeight="334.0" prefWidth="735.0">
      <xAxis>
        <NumberAxis side="BOTTOM" />
      </xAxis>

@@ -1,8 +1,10 @@
 package com.clothify.pos.controller.system_pages;
 
 import com.clothify.pos.bo.BoFactory;
+import com.clothify.pos.bo.custom.InventoryBo;
 import com.clothify.pos.bo.custom.ProductBo;
 import com.clothify.pos.bo.custom.SupplierBo;
+import com.clothify.pos.dto.Inventory;
 import com.clothify.pos.dto.Product;
 import com.clothify.pos.util.BoType;
 import com.jfoenix.controls.JFXComboBox;
@@ -63,6 +65,7 @@ public class ProductPageFormController implements Initializable {
 
    private final ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
    private final SupplierBo supplierBo = BoFactory.getInstance().getBo(BoType.SUPPLIER);
+   private final InventoryBo inventoryBo = BoFactory.getInstance().getBo(BoType.INVENTORY);
 
     public void btnOrderOnAction() throws IOException {
         Parent parent = new FXMLLoader(getClass().getResource("/view/system_pages/order_page.fxml")).load();
@@ -105,43 +108,61 @@ public class ProductPageFormController implements Initializable {
 
 
     public void btnAddProductOnAction() {
+        int qty = Integer.parseInt(txtQty.getText());
+        double unitPrice = Double.parseDouble(txtUnitPrice.getText());
         try {
             Product product = new Product(
+                    null,
                     lblProductId.getText(),
                     txtProductName.getText(),
                     cmbSupplier.getValue(),
-                    Double.parseDouble(txtUnitPrice.getText()),
+                    unitPrice,
                     cmbCategory.getValue(),
-                    Integer.parseInt(txtQty.getText())
+                    qty
+            );
+            double totalInventory = qty * unitPrice;
+            Inventory inventory = new Inventory(
+                    null,
+                    lblProductId.getText(),
+                    txtProductName.getText(),
+                    cmbCategory.getValue(),
+                    cmbSupplier.getValue(),
+                    qty,
+                    qty,
+                    unitPrice,
+                    totalInventory
+
             );
 
-            boolean b = productBo.persist(product);
-            if(b){
-                new Alert(Alert.AlertType.CONFIRMATION,"Product Successfully added.");
+            boolean successProduct = productBo.persist(product);
+            boolean successInventory = inventoryBo.persist(inventory);
+            if(successProduct && successInventory){
+                new Alert(Alert.AlertType.CONFIRMATION,"Product Successfully added.").show();
                 cleanFields();
                 generateID();
             }else {
-                new Alert(Alert.AlertType.ERROR,"Product not  added.Check if all the text fields are filled.");
+                new Alert(Alert.AlertType.ERROR,"Product not  added.Check if all the text fields are filled.").show();
                 cleanFields();
             }
         } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.WARNING,"Data can't bind Check if all the text fields are filled.");
+            new Alert(Alert.AlertType.WARNING,"Data can't bind Check if all the text fields are filled.").show();
         }
 
     }
 
     public void btnRemoveOnAction() {
+        new Alert(Alert.AlertType.WARNING,"You have to check and delete the inventory related to this product as well").show();
         if(!Objects.equals(txtProductId.getText(), "")){
             boolean delete = productBo.delete(txtProductId.getText());
             if(delete){
-                new Alert(Alert.AlertType.CONFIRMATION,"Product deleted Success.");
+                new Alert(Alert.AlertType.CONFIRMATION,"Product deleted Success.").show();
                 cleanFields();
             }else {
-                new Alert(Alert.AlertType.ERROR,"Product not deleted. Check the ID and try again.");
+                new Alert(Alert.AlertType.ERROR,"Product not deleted. Check the ID and try again.").show();
                 cleanFields();
             }
         }else{
-            new Alert(Alert.AlertType.WARNING,"Enter the productId before deleting.");
+            new Alert(Alert.AlertType.WARNING,"Enter the productId before deleting.").show();
         }
 
     }
@@ -149,6 +170,7 @@ public class ProductPageFormController implements Initializable {
     public void btnUpdateOnAction() {
         try {
             Product product = new Product(
+                    null,
                     txtProductId.getText(),
                     txtProductName.getText(),
                     cmbSupplier.getValue(),
@@ -159,14 +181,14 @@ public class ProductPageFormController implements Initializable {
 
             boolean b = productBo.update(product);
             if(b){
-                new Alert(Alert.AlertType.CONFIRMATION,"Product Successfully updated.");
+                new Alert(Alert.AlertType.CONFIRMATION,"Product Successfully updated.").show();
                 cleanFields();
             }else {
-                new Alert(Alert.AlertType.ERROR,"Product not updated.");
+                new Alert(Alert.AlertType.ERROR,"Product not updated.").show();
                 cleanFields();
             }
         } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.WARNING,"Data can't bind Check if all the text fields are filled.");
+            new Alert(Alert.AlertType.WARNING,"Data can't bind Check if all the text fields are filled.").show();
         }
     }
 
@@ -179,7 +201,7 @@ public class ProductPageFormController implements Initializable {
             txtQty.setText(product.getQty()+"");
             txtUnitPrice.setText(product.getUnitPrice()+"");
         }else{
-            new Alert(Alert.AlertType.WARNING,"Enter the Product ID to search.");
+            new Alert(Alert.AlertType.WARNING,"Enter the Product ID to search.").show();
         }
 
 
@@ -222,6 +244,10 @@ public class ProductPageFormController implements Initializable {
         }
     }
 
+    @FXML
+    public void btnLoadTable(ActionEvent actionEvent) {
+        loadTable();
+    }
     private void loadTable(){
         ObservableList<Product> products = productBo.searchAll();
         tblProduct.setItems(products);
@@ -255,7 +281,7 @@ public class ProductPageFormController implements Initializable {
         colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
         loadAllCategories();
         loadAllSupplierIds();
-        loadTable();
+
 
     }
 }
